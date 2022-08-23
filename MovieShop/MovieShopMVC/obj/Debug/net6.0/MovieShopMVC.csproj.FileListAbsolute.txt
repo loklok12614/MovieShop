@@ -237,3 +237,7 @@
 /Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/obj/Debug/net6.0/MovieShopMVC.pdb
 /Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/obj/Debug/net6.0/MovieShopMVC.genruntimeconfig.cache
 /Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/obj/Debug/net6.0/ref/MovieShopMVC.dll
+/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/bin/Debug/net6.0/ApplicationCore.dll
+/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/bin/Debug/net6.0/Infrastructure.dll
+/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/bin/Debug/net6.0/ApplicationCore.pdb
+/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/bin/Debug/net6.0/Infrastructure.pdb
