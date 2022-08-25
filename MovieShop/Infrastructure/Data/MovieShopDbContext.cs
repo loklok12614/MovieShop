@@ -32,6 +32,11 @@ public class MovieShopDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Favorite> Favorites { get; set; }
     public DbSet<Review> Reviews { get; set; }
+    public DbSet<Purchase> Purchases { get; set; }
+    public DbSet<UserRole> UserRoles { get; set; }
+    
+    // Role
+    public DbSet<Role> Roles { get; set; }
     
     // override the method called OnModelCreating for Fluent API
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -43,6 +48,8 @@ public class MovieShopDbContext : DbContext
         modelBuilder.Entity<User>(ConfigureUser);
         modelBuilder.Entity<Favorite>(ConfigureFavorite);
         modelBuilder.Entity<Review>(ConfigureReview);
+        modelBuilder.Entity<Purchase>(ConfigurePurchase);
+        modelBuilder.Entity<UserRole>(ConfigureUserRole);
     }
 
     private void ConfigureMovieGenre(EntityTypeBuilder<MovieGenre> builder)
@@ -56,6 +63,12 @@ public class MovieShopDbContext : DbContext
         builder.ToTable("MovieCasts");
         builder.HasKey(mc => new { mc.CastId, mc.MovieId, mc.Character });
         builder.Property(mc => mc.Character).HasMaxLength(450);
+    }
+
+    private void ConfigureUserRole(EntityTypeBuilder<UserRole> builder)
+    {
+        builder.ToTable("UserRoles");
+        builder.HasKey(ur => new { ur.UserId, ur.RoleId });
     }
 
     private void ConfigureFavorite(EntityTypeBuilder<Favorite> builder)
@@ -72,6 +85,17 @@ public class MovieShopDbContext : DbContext
         builder.Property(r => r.Rating).HasColumnType("decimal(3, 2)").HasDefaultValue(0.0m);
 
         builder.Property(r => r.CreatedDate).HasDefaultValueSql("getdate()");
+    }
+
+    private void ConfigurePurchase(EntityTypeBuilder<Purchase> builder)
+    {
+        builder.ToTable("Purchases");
+        builder.HasKey(p => new { p.MovieId, p.UserId });
+        builder.Property(p => p.PurchaseNumber).ValueGeneratedOnAdd();
+
+        builder.Property(p => p.TotalPrice).HasColumnType("decimal(5, 2)").HasDefaultValue(0.0m);
+
+        builder.Property(p => p.PurchaseDateTime).HasDefaultValueSql("getdate()");
     }
 
     private void ConfigureMovie(EntityTypeBuilder<Movie> builder)

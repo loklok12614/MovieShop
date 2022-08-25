@@ -15,5 +15,7 @@ public class User
     public string Salt { get; set; }
 
     public ICollection<Favorite> MoviesFavorited { get; set; }
-    public ICollection<Review> MoviesReviewed { get; set; } 
+    public ICollection<Review> MoviesReviewed { get; set; }
+    public ICollection<Purchase> MoviesPurchased { get; set; }
+    public ICollection<UserRole> RolesOfUser { get; set; }
 }

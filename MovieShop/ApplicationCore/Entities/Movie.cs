@@ -31,6 +31,7 @@ public class Movie
     public ICollection<MovieCast> CastsOfMovie { get; set; }
     public ICollection<Trailer> Trailers { get; set; } //One Movie has many Trailers
     public ICollection<Favorite> UsersFavorited { get; set; } 
-    public ICollection<Review> UsersReviewed { get; set; } 
+    public ICollection<Review> UsersReviewed { get; set; }
+    public ICollection<Purchase> UsersPurchased { get; set; }
 
 }
