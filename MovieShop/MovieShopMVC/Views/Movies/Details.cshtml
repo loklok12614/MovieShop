@@ -1,16 +1,9 @@
+@model ApplicationCore.Models.MovieDetailsModel
+
 @{
-    ViewData["Title"] = "Movie Title...";
+    ViewData["Title"] = Model.Title;
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
 <div>
-      
+    <partial name="_MovieDetailsBanner" model="@Model"/>
 </div>
-</body>
-</html>

@@ -25,4 +25,53 @@ public class MovieService : IMovieService
 
         return movieCards;
     }
+
+    public MovieDetailsModel GetMovieDetails(int movieId)
+    {
+        var movieDetails = _movieRepository.GetById(movieId);
+
+        var movieDetailsModel = new MovieDetailsModel
+        {
+            Id = movieDetails.Id,
+            Title = movieDetails.Title,
+            Overview = movieDetails.Overview,
+            Tagline = movieDetails.Tagline,
+            Budget = movieDetails.Budget,
+            Revenue = movieDetails.Revenue,
+            ImdbUrl = movieDetails.ImdbUrl,
+            TmdbUrl = movieDetails.TmdbUrl,
+            PosterUrl = movieDetails.PosterUrl,
+            BackdropUrl = movieDetails.BackdropUrl,
+            OriginalLanguage = movieDetails.OriginalLanguage,
+            ReleaseDate = movieDetails.ReleaseDate,
+            RunTime = movieDetails.RunTime,
+            Price = movieDetails.Price
+        };
+
+        foreach (var trailer in movieDetails.Trailers)
+        {
+            movieDetailsModel.Trailers.Add(new TrailerModel
+            {
+                Id = trailer.Id, Name = trailer.Name, TrailerUrl = trailer.TrailerUrl
+            });
+        }
+        
+        foreach (var cast in movieDetails.CastsOfMovie)
+        {
+            movieDetailsModel.Casts.Add(new CastModel
+            {
+                Id = cast.CastId, Name = cast.Cast.Name, ProfilePath = cast.Cast.ProfilePath, TmdbUrl = cast.Cast.TmdbUrl
+            });
+        }
+        
+        foreach (var genre in movieDetails.GenresOfMovie)
+        {
+            movieDetailsModel.Genres.Add(new GenreModel
+            {
+                Id = genre.GenreId, Name = genre.Genre.Name
+            });
+        }
+
+        return movieDetailsModel;
+    }
 }

@@ -1,0 +1,41 @@
+@model ApplicationCore.Models.MovieDetailsModel
+
+<div class="movie-details-banner">
+    <div class="movie-details-banner-background" style="background-image: url(@Model.BackdropUrl)">
+    </div>
+    <div class="movie-details">
+        <div class="row">
+            <div class="col-12 col-md-4 text-center text-md-end">
+                <img src="@Model.PosterUrl" class="image-fluid" alt="@Model.Title" title="@Model.Title" height="320px"/>
+            </div>
+        
+            <div class="col-12 col-md-6 text-start text-white px-5 py-1">
+                <h3>@Model.Title</h3>
+                
+                <p class="text-muted" style="font-size: 12px">@Model.Tagline</p>
+                
+                <div class="d-flex justify-content-between text-muted mb-2">
+                    <div class="align-content-center">@Model.RunTime m | @Model.ReleaseDate.Value.Year</div>
+                    <div class="align-content-center">
+                        @foreach (var genre in @Model.Genres)
+                        {
+                            <span class="badge rounded-pill bg-secondary">
+                                @genre.Name
+                            </span>
+                        }
+                    </div>
+                </div>
+                
+                <div class="badge bg-success mb-2">8.9</div>
+                
+                <div class="fs-6">
+                    @Model.Overview
+                </div>
+            </div>
+        
+            <div class="col-12 col-md-2 text-center text-md-end">
+                Dude
+            </div>
+        </div>
+    </div>
+</div>

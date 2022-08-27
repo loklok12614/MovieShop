@@ -2,6 +2,6 @@
 
 <div class="card mb-4">
     <a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.Id">
-        <img src="@Model.PosterUrl" class="img-fluid"/>
+        <img src="@Model.PosterUrl" class="img-fluid" alt="@Model.Title" title="@Model.Title"/>
     </a>
 </div>

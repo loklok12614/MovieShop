@@ -16,3 +16,19 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.movie-details-banner-background{
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 320px;
+  background-size: cover;
+  filter: brightness(20%);
+  z-index: 1;
+}
+
+.movie-details{
+  position: relative;
+  max-height: 320px;
+  z-index: 2;
+}
