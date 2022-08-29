@@ -14,6 +14,7 @@ namespace MovieShopMVC.Controllers
             return View();
         }
 
+        [HttpPost]
         public async Task<IActionResult> Login(UserLoginModel model)
         {
             return View();
@@ -24,6 +25,7 @@ namespace MovieShopMVC.Controllers
             return View();
         }
 
+        [HttpPost]
         public async Task<IActionResult> Register(UserRegisterModel model)
         {
             return View();

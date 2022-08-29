@@ -15,6 +15,14 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC
 build_property._RazorSourceGeneratorDebug = 
 
+[/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9Mb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/Views/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9SZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/Views/Cast/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2FzdC9EZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -45,6 +53,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/Views/Shared/_CastMovies.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19DYXN0TW92aWVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/Views/Shared/_GenreDropdown.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19HZW5yZURyb3Bkb3duLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/Views/Shared/_MovieCard.cshtml]
