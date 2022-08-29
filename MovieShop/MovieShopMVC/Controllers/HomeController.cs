@@ -17,10 +17,10 @@ public class HomeController : Controller
         _movieService = movieService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
         // go to db and get the data
-        var movies = _movieService.GetTop30GrossingMovies();
+        var movies = await _movieService.GetTop30GrossingMovies();
         
         //3 ways we can send 
         //ViewBag

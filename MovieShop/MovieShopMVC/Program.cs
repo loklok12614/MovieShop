@@ -16,6 +16,9 @@ builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<ICastRepository, CastRepository>();
 builder.Services.AddScoped<ICastService, CastService>();
 
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+builder.Services.AddScoped<IGenreService, GenreService>();
+
 //inject connection string from appsettings.json in to MovieShopDbContext class
 builder.Services.AddDbContext<MovieShopDbContext>( options =>
 {

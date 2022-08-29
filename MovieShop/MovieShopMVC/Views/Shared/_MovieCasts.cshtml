@@ -7,7 +7,9 @@
         {
             <li class="list-group-item d-flex my-2">
                 <div class="flex-shrink-1">
-                    <img src="@cast.ProfilePath" alt="@cast.Name" title="@cast.Name" width="30%"/>
+                    <a asp-controller="Cast" asp-action="Details" asp-route-id="@cast.Id" class="text-decoration-none text-reset">
+                        <img src="@cast.ProfilePath" alt="@cast.Name" title="@cast.Name" width="30%"/>
+                    </a>
                 </div>
                 <div class="w-100">
                     <a asp-controller="Cast" asp-action="Details" asp-route-id="@cast.Id" class="text-decoration-none text-reset">

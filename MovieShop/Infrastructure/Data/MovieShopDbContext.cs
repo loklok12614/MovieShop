@@ -82,8 +82,8 @@ public class MovieShopDbContext : DbContext
         builder.ToTable("Reviews");
         builder.HasKey(r => new { r.MovieId, r.UserId });
 
-        builder.Property(r => r.Rating).HasColumnType("decimal(3, 2)").HasDefaultValue(0.0m);
-
+        builder.Property(r => r.ReviewText).HasMaxLength(20000);
+        builder.Property(r => r.Rating).HasColumnType("decimal(3, 2)");
         builder.Property(r => r.CreatedDate).HasDefaultValueSql("getdate()");
     }
 
@@ -138,9 +138,8 @@ public class MovieShopDbContext : DbContext
         builder.Property(u => u.HashedPassword).HasMaxLength(1024);
         builder.Property(u => u.Salt).HasMaxLength(1024);
 
-        builder.Property(u => u.IsLocked).HasDefaultValue(0);
-        
-        builder.HasIndex(u => u.FirstName);
-        builder.HasIndex(u => u.LastName);
+        builder.Property(u => u.IsLocked).HasDefaultValue(false);
+
+        builder.HasIndex(u => u.Email).IsUnique();
     }
 }

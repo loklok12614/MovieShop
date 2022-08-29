@@ -13,9 +13,9 @@ public class MovieService : IMovieService
     {
         _movieRepository = movieRepository;
     }
-    public List<MovieCardModel> GetTop30GrossingMovies()
+    public async Task<List<MovieCardModel>> GetTop30GrossingMovies()
     {
-        var movies = _movieRepository.GetTop30GrossingMovies();
+        var movies = await _movieRepository.GetTop30GrossingMovies();
 
         var movieCards = new List<MovieCardModel>();
         foreach (var movie in movies)
@@ -26,9 +26,9 @@ public class MovieService : IMovieService
         return movieCards;
     }
 
-    public MovieDetailsModel GetMovieDetails(int movieId)
+    public async Task<MovieDetailsModel> GetMovieDetails(int movieId)
     {
-        var movieDetails = _movieRepository.GetById(movieId);
+        var movieDetails = await _movieRepository.GetById(movieId);
 
         var movieDetailsModel = new MovieDetailsModel
         {

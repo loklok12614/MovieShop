@@ -13,11 +13,11 @@ public class CastRepository : ICastRepository
     {
         _movieShopDbContext = movieShopDbContext;
     }
-    public Cast GetById(int id)
+    public async Task<Cast> GetById(int id)
     {
-        var castDetails = _movieShopDbContext.Casts
+        var castDetails = await _movieShopDbContext.Casts
             .Include(c => c.MoviesOfCast).ThenInclude(mc => mc.Movie)
-            .FirstOrDefault(c => c.Id == id);
+            .FirstOrDefaultAsync(c => c.Id == id);
 
         return castDetails;
     }

@@ -2,7 +2,7 @@ using ApplicationCore.Entities;
 
 namespace ApplicationCore.Contracts.Repositories;
 
-public interface ICastRepository
+public interface IGenreRepository
 {
-    Task<Cast> GetById(int id);
+    Task<List<Genre>> GetAllGenres();
 }
