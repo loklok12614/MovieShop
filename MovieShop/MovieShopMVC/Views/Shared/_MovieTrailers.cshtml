@@ -1,0 +1,15 @@
+@model List<ApplicationCore.Models.TrailerModel>
+
+<div>
+    <h5 class="border-bottom-0">TRAILERS</h5>
+    <ul class="list-group list-group-flush">
+        @foreach (var trailer in @Model)
+        {
+            <li class="list-group-item bg-light my-2">
+                <a href="@trailer.TrailerUrl" class="text-decoration-none text-reset">
+                    <i class="fa-brands fa-youtube"></i> <span class="text-muted">@trailer.Name</span>
+                </a>
+            </li>
+        }
+    </ul>
+</div>

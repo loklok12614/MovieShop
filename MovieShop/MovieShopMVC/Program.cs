@@ -13,6 +13,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 
+builder.Services.AddScoped<ICastRepository, CastRepository>();
+builder.Services.AddScoped<ICastService, CastService>();
+
 //inject connection string from appsettings.json in to MovieShopDbContext class
 builder.Services.AddDbContext<MovieShopDbContext>( options =>
 {

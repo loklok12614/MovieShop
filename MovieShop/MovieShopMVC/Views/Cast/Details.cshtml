@@ -1,0 +1,17 @@
+@model ApplicationCore.Models.CastDetailsModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="">
+    <partial name="_CastDetailsBanner" model="@Model" class="mb-2"/>
+    <div class="row my-3">
+        <div class="col-12 col-md-4 bg-light">
+            <partial name="_CastFacts" model="@Model" class="mb-2"/>
+        </div>
+        <div class="col-12 col-md-8">
+            <partial name="_CastMovies" model="@Model.Movies" class="mb-2"/>
+        </div>
+    </div>
+</div>

@@ -4,6 +4,15 @@
     ViewData["Title"] = Model.Title;
 }
 
-<div>
-    <partial name="_MovieDetailsBanner" model="@Model"/>
+<div class="">
+    <partial name="_MovieDetailsBanner" model="@Model" class="mb-2"/>
+    <div class="row my-3">
+        <div class="col-12 col-md-4 bg-light">
+            <partial name="_MovieFacts" model="@Model" class="mb-2"/>
+            <partial name="_MovieTrailers" model="@Model.Trailers" class="mb-2"/>
+        </div>
+        <div class="col-12 col-md-8">
+            <partial name="_MovieCasts" model="@Model.Casts" class="mb-2"/>
+        </div>
+    </div>
 </div>

@@ -60,7 +60,7 @@ public class MovieService : IMovieService
         {
             movieDetailsModel.Casts.Add(new CastModel
             {
-                Id = cast.CastId, Name = cast.Cast.Name, ProfilePath = cast.Cast.ProfilePath, TmdbUrl = cast.Cast.TmdbUrl
+                Id = cast.CastId, Name = cast.Cast.Name, ProfilePath = cast.Cast.ProfilePath, TmdbUrl = cast.Cast.TmdbUrl, Character = cast.Character
             });
         }
         

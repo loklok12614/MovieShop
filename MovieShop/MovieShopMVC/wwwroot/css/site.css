@@ -1,10 +1,10 @@
 html {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 
@@ -18,17 +18,25 @@ body {
 }
 
 .movie-details-banner-background{
-  position: absolute;
   left: 0;
   width: 100%;
   height: 320px;
   background-size: cover;
   filter: brightness(20%);
-  z-index: 1;
+}
+
+.cast-details-banner-background{
+  left: 0;
+  width: 100%;
+  height: 320px;
+  background-size: cover;
 }
 
 .movie-details{
-  position: relative;
   max-height: 320px;
-  z-index: 2;
+}
+
+.facts{
+  left: 0;
+  top: 0;
 }

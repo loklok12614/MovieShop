@@ -1,0 +1,23 @@
+@model List<ApplicationCore.Models.CastModel>
+
+<div class="w-75" style="padding-left: 40px;">
+    <h5 class="border-bottom-0">CAST</h5>
+    <ul class="list-group list-group-flush">
+        @foreach (var cast in @Model)
+        {
+            <li class="list-group-item d-flex my-2">
+                <div class="flex-shrink-1">
+                    <img src="@cast.ProfilePath" alt="@cast.Name" title="@cast.Name" width="30%"/>
+                </div>
+                <div class="w-100">
+                    <a asp-controller="Cast" asp-action="Details" asp-route-id="@cast.Id" class="text-decoration-none text-reset">
+                        @cast.Name
+                    </a>
+                </div>
+                <div class="w-100">
+                    @cast.Character
+                </div>
+            </li>
+        }
+    </ul>
+</div>

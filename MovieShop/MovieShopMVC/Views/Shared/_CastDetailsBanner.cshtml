@@ -1,0 +1,44 @@
+@model ApplicationCore.Models.CastDetailsModel
+
+<div class="">
+    <div class="cast-details-banner-background position-absolute" style="background-color: #1e1e24">
+    </div>
+    <div class="movie-details position-relative">
+        <div class="row d-flex flex-wrap">
+            <div class="col-12 col-md-4 text-center text-md-end">
+                <img src="@Model.ProfilePath" class="image-fluid" alt="@Model.Name" title="@Model.Name" height="320px"/>
+            </div>
+        
+            <div class="col-12 col-md-6 text-start text-white px-5 py-1 d-none d-md-block">
+                <h3>@Model.Name</h3>
+                
+                @if (@Model.Gender == "1")
+                {
+                    <p class="text-muted" style="font-size: 12px">Female</p>
+                }
+                else
+                {
+                    <p class="text-muted" style="font-size: 12px">Male</p>
+                }
+
+                <div class="fs-6 mb-4">
+                    Mauris lobortis lorem id augue tincidunt, ac volutpat tortor ornare. Ut eu tortor accumsan, blandit tortor ac, lobortis nisi. Nam eget erat turpis. Proin sed dolor turpis. Quisque interdum sed sapien a finibus. Nam molestie sem vehicula, lacinia nisl a, sagittis tellus. Curabitur ultrices tincidunt turpis vitae venenatis. Mauris vitae ultricies urna. Integer sollicitudin mi faucibus cursus auctor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </div>
+                
+                <p class="text-muted">Born : March 05 1995 in Queens, New York, USA</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="w-100 text-start text-dark px-5 py-1 d-md-none">
+        <h3>@Model.Name</h3>
+                    
+        <p class="text-muted" style="font-size: 12px">@Model.Gender</p>
+
+        <div class="fs-6 mb-4">
+            Mauris lobortis lorem id augue tincidunt, ac volutpat tortor ornare. Ut eu tortor accumsan, blandit tortor ac, lobortis nisi. Nam eget erat turpis. Proin sed dolor turpis. Quisque interdum sed sapien a finibus. Nam molestie sem vehicula, lacinia nisl a, sagittis tellus. Curabitur ultrices tincidunt turpis vitae venenatis. Mauris vitae ultricies urna. Integer sollicitudin mi faucibus cursus auctor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </div>
+        
+        <div class="text-muted">Born : March 05 1995 in Queens, New York, USA</div>
+    </div>
+</div>

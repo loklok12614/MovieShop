@@ -1,0 +1,26 @@
+@model List<ApplicationCore.Models.CastMovieModel>
+
+<div class="w-75" style="padding-left: 40px;">
+    <h5 class="border-bottom-0">FILMOGRAPHY</h5>
+    <ul class="list-group list-group-flush">
+        @{
+            var movies = @Model.OrderByDescending(m => m.ReleaseDate).ToList();
+        }
+        @foreach (var movie in @movies)
+        {
+            <li class="list-group-item d-flex my-2">
+                <div class="flex-shrink-1 me-4">
+                    @movie.ReleaseDate.Value.Year
+                </div>
+                <div class="w-100">
+                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id" class="text-decoration-none text-reset">
+                        @movie.Title
+                    </a>
+                </div>
+                <div class="w-100">
+                    @movie.Character
+                </div>
+            </li>
+        }
+    </ul>
+</div>

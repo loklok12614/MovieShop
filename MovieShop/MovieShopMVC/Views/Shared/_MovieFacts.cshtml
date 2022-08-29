@@ -1,0 +1,35 @@
+@model ApplicationCore.Models.MovieDetailsModel
+
+<div class="">
+    <h5>MOVIE FACTS</h5>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item bg-light">
+            <i class="fa-solid fa-calendar-days"></i> Release Date
+            <span class="badge rounded-pill bg-secondary">
+                @Model.ReleaseDate.Value.ToString("MMM dd, yyyy")
+            </span>
+        </li>
+        <li class="list-group-item bg-light">
+            <i class="fa-solid fa-hourglass-half"></i> Run Time
+            <span class="badge rounded-pill bg-secondary">
+                @Model.RunTime m
+            </span>
+        </li>
+        <li class="list-group-item bg-light">
+            <i class="fa-solid fa-money-bill-1"></i> Box Office
+            <span class="badge rounded-pill bg-secondary">
+                @string.Format("{0:C0}", Model.Revenue)
+            </span>
+        </li>
+        <li class="list-group-item bg-light">
+            <i class="fa-solid fa-dollar-sign"></i> Budget
+            <span class="badge rounded-pill bg-secondary">
+                @string.Format("{0:C0}", Model.Budget)
+            </span>
+        </li>
+        <li class="list-group-item bg-light">
+            <a href="@Model.ImdbUrl" class="text-reset mx-2"><i class="fa-brands fa-imdb"></i></a>
+            <a href="@Model.TmdbUrl" class="text-reset mx-2"><i class="fa-solid fa-share-from-square"></i></a>
+        </li>
+    </ul>
+</div>
