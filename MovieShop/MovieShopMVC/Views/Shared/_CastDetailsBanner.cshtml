@@ -11,14 +11,26 @@
         
             <div class="col-12 col-md-6 text-start text-white px-5 py-1 d-none d-md-block">
                 <h3>@Model.Name</h3>
-                
-                @if (@Model.Gender == "1")
-                {
-                    <p class="text-muted" style="font-size: 12px">Female</p>
-                }
-                else
-                {
-                    <p class="text-muted" style="font-size: 12px">Male</p>
+
+                @{
+                    switch (@Model.Gender)
+                    {
+                        case "0": 
+                            <p class="text-muted" style="font-size: 12px">Not Applicable</p>
+                            break;
+                        case "1": 
+                            <p class="text-muted" style="font-size: 12px">Female</p>
+                            break;
+                        case "2": 
+                            <p class="text-muted" style="font-size: 12px">Male</p>
+                            break;
+                        case "3": 
+                            <p class="text-muted" style="font-size: 12px">Non-binary</p>
+                            break;
+                        default: 
+                            <p class="text-muted" style="font-size: 12px">Chooses not to identify</p>
+                            break;
+                    }
                 }
 
                 <div class="fs-6 mb-4">
