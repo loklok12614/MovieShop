@@ -1,0 +1,50 @@
+@model List<ApplicationCore.Models.MovieCardModel>
+
+@{
+    ViewData["Title"] = "All Movies";
+}
+
+@* Display 30 movie cards *@
+
+<div class="rounded">
+    <div class="container-fluid">
+        <div class="row">
+            <h4>Total :  @ViewBag.totalMovies</h4>
+            @foreach (var movieCard in Model)
+            {
+                <div class="col-12 col-sm-6 col-lg-3 col-xl-2">
+                    @* call the partial view *@
+                    <partial name="_MovieCard" model="movieCard"/>
+                </div>
+            }
+        </div>
+    </div>
+    
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-item disabled">
+                <span class="page-link">Previous</span>
+            </li>
+            @{
+                for (int i = 1; i <= ViewBag.totalPages; i++)
+                {
+                    if (i == ViewBag.pageNumber)
+                    {
+                        <li class="page-item active">
+                            <a class="page-link" asp-controller="Movies" asp-action="All" asp-route-pageNumber="@i">@i</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            <a class="page-link" asp-controller="Movies" asp-action="All" asp-route-pageNumber="@i">@i</a>
+                        </li>
+                    }
+                }
+            }
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>

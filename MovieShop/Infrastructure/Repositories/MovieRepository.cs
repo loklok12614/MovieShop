@@ -25,6 +25,14 @@ public class MovieRepository : IMovieRepository
         return movieDetails;
     }
 
+    public async Task< Tuple< List<Movie>, int>> GetAllMovies(int pageNumber, int pageSize)
+    {
+        var movies = await _movieShopDbContext.Movies.OrderByDescending(m => m.Revenue).ToListAsync();
+        var paginatedMovies = movies.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+        int totalMovies = movies.Count();
+        return Tuple.Create(paginatedMovies, totalMovies);
+    }
+
     public async Task<List<Movie>> GetTop30GrossingMovies()
     {
         var movies = await _movieShopDbContext.Movies.OrderByDescending(m => m.Revenue).Take(30).ToListAsync();

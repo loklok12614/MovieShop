@@ -19,6 +19,11 @@ builder.Services.AddScoped<ICastService, CastService>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddScoped<IAccountService, AccountService>();
+
 //inject connection string from appsettings.json in to MovieShopDbContext class
 builder.Services.AddDbContext<MovieShopDbContext>( options =>
 {

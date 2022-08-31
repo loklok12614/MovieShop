@@ -13,6 +13,22 @@ public class MovieService : IMovieService
     {
         _movieRepository = movieRepository;
     }
+
+    public async Task< Tuple< List<MovieCardModel>, int>> GetAllMovies(int pageNumber, int pageSize)
+    {
+        var movies = await _movieRepository.GetAllMovies(pageNumber, pageSize);
+
+        var movieCards = movies.Item1.Select(m => new MovieCardModel
+        {
+            Id = m.Id,
+            Title = m.Title,
+            PosterUrl = m.PosterUrl
+        }).ToList();
+
+        int totalMovies = movies.Item2;
+        return Tuple.Create(movieCards, totalMovies);
+    }
+
     public async Task<List<MovieCardModel>> GetTop30GrossingMovies()
     {
         var movies = await _movieRepository.GetTop30GrossingMovies();

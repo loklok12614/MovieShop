@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "o35s99rGC7yyod9ttkUJ4LHGL+J9Y1s4ijGEyo3b5p5uRt5IeVz5jRmSagi95QlwRkwhC3BkTYirRqeeVJL1qA==",
+  "dgSpecHash": "58zNwmNFNmMTs/Xl/rnYKXU901m3RYlmkT7QbDkwyGzAISYJYsjlKmj2j1xFJ98wGRjbxdkzFIHbJyHJCG03ZQ==",
   "success": true,
   "projectFilePath": "/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/Infrastructure/Infrastructure.csproj",
   "expectedPackageFiles": [
     "/Users/ching-lokleung/.nuget/packages/azure.core/1.20.0/azure.core.1.20.0.nupkg.sha512",
     "/Users/ching-lokleung/.nuget/packages/azure.identity/1.5.0/azure.identity.1.5.0.nupkg.sha512",
+    "/Users/ching-lokleung/.nuget/packages/microsoft.aspnetcore.cryptography.internal/6.0.8/microsoft.aspnetcore.cryptography.internal.6.0.8.nupkg.sha512",
+    "/Users/ching-lokleung/.nuget/packages/microsoft.aspnetcore.cryptography.keyderivation/6.0.8/microsoft.aspnetcore.cryptography.keyderivation.6.0.8.nupkg.sha512",
     "/Users/ching-lokleung/.nuget/packages/microsoft.bcl.asyncinterfaces/1.0.0/microsoft.bcl.asyncinterfaces.1.0.0.nupkg.sha512",
     "/Users/ching-lokleung/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",
     "/Users/ching-lokleung/.nuget/packages/microsoft.data.sqlclient/5.0.0-preview2.22096.2/microsoft.data.sqlclient.5.0.0-preview2.22096.2.nupkg.sha512",

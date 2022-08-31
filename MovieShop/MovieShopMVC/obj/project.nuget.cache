@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "jE0WWhpPn9uJAqhaUfbAQlJTkuTxhh96MqWxtt9TB5hAa/Oc0MvKeRfTZmQu82lCPKwb65TZmaVkS1VVKKX2yQ==",
+  "dgSpecHash": "ijezT1x+MJ3+opiYGh8YUudB3vhJ/kopfaqn3ZgJ/KOBfSCOwJpxGmINbOMuCZaQZrANMhjjQ1v/8tEpd+5Zbg==",
   "success": true,
   "projectFilePath": "/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/MovieShopMVC.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,8 @@
     "/Users/ching-lokleung/.nuget/packages/messagepack/2.1.152/messagepack.2.1.152.nupkg.sha512",
     "/Users/ching-lokleung/.nuget/packages/messagepack.annotations/2.1.152/messagepack.annotations.2.1.152.nupkg.sha512",
     "/Users/ching-lokleung/.nuget/packages/messagepackanalyzer/2.1.152/messagepackanalyzer.2.1.152.nupkg.sha512",
+    "/Users/ching-lokleung/.nuget/packages/microsoft.aspnetcore.cryptography.internal/6.0.8/microsoft.aspnetcore.cryptography.internal.6.0.8.nupkg.sha512",
+    "/Users/ching-lokleung/.nuget/packages/microsoft.aspnetcore.cryptography.keyderivation/6.0.8/microsoft.aspnetcore.cryptography.keyderivation.6.0.8.nupkg.sha512",
     "/Users/ching-lokleung/.nuget/packages/microsoft.aspnetcore.razor.language/6.0.0/microsoft.aspnetcore.razor.language.6.0.0.nupkg.sha512",
     "/Users/ching-lokleung/.nuget/packages/microsoft.bcl.asyncinterfaces/5.0.0/microsoft.bcl.asyncinterfaces.5.0.0.nupkg.sha512",
     "/Users/ching-lokleung/.nuget/packages/microsoft.build/17.0.0/microsoft.build.17.0.0.nupkg.sha512",
