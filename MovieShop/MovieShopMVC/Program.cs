@@ -3,7 +3,9 @@ using ApplicationCore.Contracts.Services;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using MovieShopMVC.Infra;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,11 +26,25 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddScoped<IAccountService, AccountService>();
 
+// Current User
+builder.Services.AddScoped<ICurrentUser, CurrentUser>();
+
+builder.Services.AddHttpContextAccessor();
+
 //inject connection string from appsettings.json in to MovieShopDbContext class
 builder.Services.AddDbContext<MovieShopDbContext>( options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MovieShopDbConnection"));
 });
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(option =>
+    {
+        option.Cookie.Name = "MovieShopAuthCookie";
+        option.ExpireTimeSpan = TimeSpan.FromHours(2);
+        option.LoginPath = "/account/login";
+        option.LogoutPath = "/account/logout";
+    });
 
 var app = builder.Build();
 
@@ -45,6 +61,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// middleware
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

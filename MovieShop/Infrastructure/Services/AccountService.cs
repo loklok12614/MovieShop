@@ -31,11 +31,10 @@ public class AccountService : IAccountService
             throw new Exception("Incorrect credentials");
         }
 
-        var userLoginSuccessModel = new UserLoginSuccessModel
+        return new UserLoginSuccessModel
         {
             Id = user.Id, Email = user.Email, FirstName = user.FirstName, LastName = user.LastName
         };
-        return userLoginSuccessModel;
     }
 
     public async Task<int> RegisterUser(UserRegisterModel model)

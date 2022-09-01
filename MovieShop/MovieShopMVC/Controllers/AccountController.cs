@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ApplicationCore.Contracts.Services;
 using ApplicationCore.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MovieShopMVC.Controllers
@@ -25,13 +28,27 @@ namespace MovieShopMVC.Controllers
         public async Task<IActionResult> Login(UserLoginModel model)
         {
             var userSuccess = await _accountService.ValidateUser(model);
-            if (userSuccess.Id > 0)
+            if (userSuccess == null)
             {
-                // password matches
-                // redirect to home page
-                return LocalRedirect("~/");
+                return View(model);
             }
-            return View();
+            // password matches
+            // after success auth 
+            // create claims userid, email, fn, ln
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Email, userSuccess.Email),
+                new Claim(ClaimTypes.NameIdentifier, userSuccess.Id.ToString()),
+                new Claim(ClaimTypes.Surname, userSuccess.LastName),
+                new Claim(ClaimTypes.GivenName, userSuccess.FirstName)
+            };
+            
+            // identity object
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            // create cookie with some exp time
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+            // redirect to home page
+            return LocalRedirect("~/");
         }
 
         public IActionResult Register()
@@ -53,6 +70,12 @@ namespace MovieShopMVC.Controllers
                 });
             }
             return View();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return LocalRedirect("~/");
         }
     }
 }
