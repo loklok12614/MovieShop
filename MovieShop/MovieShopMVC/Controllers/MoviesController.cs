@@ -23,14 +23,16 @@ namespace MovieShopMVC.Controllers
             return View(movieDetails);
         }
 
-        public async Task<IActionResult> All(int pageNumber, int pageSize = 30)
+        public async Task<IActionResult> All(int pageSize=30, int page=1)
         {
-            var moviesTuple = await _movieService.GetAllMovies(pageNumber, pageSize);
-            var (movies, totalMovies) = moviesTuple;
-            ViewBag.pageNumber = pageNumber;
-            ViewBag.totalMovies = totalMovies;
-            ViewBag.totalPages = Math.Ceiling((decimal)(totalMovies / pageSize));
+            var movies = await _movieService.GetAllMovies(pageSize, page);
             return View(movies);
+        }
+
+        public async Task<IActionResult> GenreMovies(int id, int pageSize = 30, int page = 1)
+        {
+            var pagedMovies = await _movieService.GetMoviesByGenrePagination(id, pageSize, page);
+            return View(pagedMovies);
         }
     }
 }

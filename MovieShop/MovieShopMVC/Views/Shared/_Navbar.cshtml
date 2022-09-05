@@ -8,27 +8,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-            <ul class="navbar-nav flex-grow-1">
-                <li class="nav-item mx-2">
-                    <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link text-light" asp-area="" asp-controller="Movies" asp-action="All" asp-route-pageNumber="1">All Movies</a>
-                </li>
-                <li class="nav-item mx-2">
-                    @* <partial name="_GenreDropdown" model=""/> *@
-                    <a class="nav-link text-light" asp-area="" asp-controller="Movies" asp-action="All" asp-route-pageNumber="1">Genres</a>
-                </li>
-            </ul>
+            <partial name="_NavLinksPartial"/>
             
-            <ul class="navbar-nav flex-grow-1 justify-content-end">
-               <li class="nav-item mx-2">
-                   <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Register">Join Us</a>
-               </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Sign In</a>
-                </li>
-            </ul>
+            <partial name="_LoginInfoPartial"/>
         </div>
     </div>
 </nav>

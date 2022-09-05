@@ -1,15 +1,12 @@
 @model ApplicationCore.Models.PagedResultSet<ApplicationCore.Models.MovieCardModel>
 
 @{
-    ViewData["Title"] = "All Movies";
+    ViewData["title"] = "Movies";
 }
-
-@* Display 30 movie cards *@
 
 <div class="rounded">
     <div class="container-fluid">
         <div class="row">
-            <h4>Total :  @Model.TotalRowCount</h4>
             @foreach (var movieCard in Model?.Data)
             {
                 <div class="col-12 col-sm-6 col-lg-3 col-xl-2">
@@ -27,22 +24,22 @@
     <nav aria-label="...">
         <ul class="pagination">
             <li class="page-item @prevDisabled">
-                <a class="page-link" asp-controller="Movies" asp-action="All" asp-route-page="@(Model.PageIndex - 1)">Previous</a>
+                <a class="page-link" asp-controller="Movies" asp-action="GenreMovies" asp-route-page="@(Model.PageIndex - 1)">Previous</a>
             </li>
-                
+            
             @{
                 for (int i = 1; i <= Model.TotalPages; i++)
                 {
                     var currentPageHighlight = (i == Model.PageIndex) ? "active" : "";
-                        
+                    
                     <li class="page-item @currentPageHighlight">
-                        <a class="page-link" asp-controller="Movies" asp-action="All" asp-route-page="@i">@i</a>
+                        <a class="page-link" asp-controller="Movies" asp-action="GenreMovies" asp-route-page="@i">@i</a>
                     </li>
                 }
             }
-                
+            
             <li class="page-item @nextDisabled">
-                <a class="page-link" asp-controller="Movies" asp-action="All" asp-route-page="@(Model.PageIndex + 1)}">Next</a>
+                <a class="page-link" asp-controller="Movies" asp-action="GenreMovies" asp-route-page="@(Model.PageIndex + 1)}">Next</a>
             </li>
         </ul>
     </nav>

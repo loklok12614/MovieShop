@@ -1,4 +1,5 @@
 using ApplicationCore.Entities;
+using ApplicationCore.Models;
 
 namespace ApplicationCore.Contracts.Repositories;
 
@@ -8,8 +9,9 @@ public interface IMovieRepository
     Task<Movie> GetById(int id);
     
     //get all movies
-    Task< Tuple< List<Movie>, int>> GetAllMovies(int pageNumber, int pageSize);
+    Task<PagedResultSet<Movie>> GetAllMovies(int pageSize = 30, int page = 1);
     
     //get top 30 grossing movies
     Task<List<Movie>> GetTop30GrossingMovies();
+    Task<PagedResultSet<Movie>> GetMoviesByGenrePagination(int genreId, int pageSize = 30, int page = 1);
 }

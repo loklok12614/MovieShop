@@ -14,19 +14,19 @@ public class MovieService : IMovieService
         _movieRepository = movieRepository;
     }
 
-    public async Task< Tuple< List<MovieCardModel>, int>> GetAllMovies(int pageNumber, int pageSize)
+    public async Task<PagedResultSet<MovieCardModel>> GetAllMovies(int pageSize = 30, int page = 1)
     {
-        var movies = await _movieRepository.GetAllMovies(pageNumber, pageSize);
+        var movies = await _movieRepository.GetAllMovies(pageSize, page);
 
-        var movieCards = movies.Item1.Select(m => new MovieCardModel
+        var movieCards = new List<MovieCardModel>();
+        movieCards.AddRange(movies.Data.Select(m => new MovieCardModel
         {
             Id = m.Id,
-            Title = m.Title,
-            PosterUrl = m.PosterUrl
-        }).ToList();
+            PosterUrl = m.PosterUrl,
+            Title = m.Title
+        }));
 
-        int totalMovies = movies.Item2;
-        return Tuple.Create(movieCards, totalMovies);
+        return new PagedResultSet<MovieCardModel>(movieCards, page, pageSize, movies.TotalRowCount);
     }
 
     public async Task<List<MovieCardModel>> GetTop30GrossingMovies()
@@ -89,5 +89,21 @@ public class MovieService : IMovieService
         }
 
         return movieDetailsModel;
+    }
+
+    public async Task<PagedResultSet<MovieCardModel>> GetMoviesByGenrePagination(int genreId, int pageSize = 30, int page = 1)
+    {
+        var movies = await _movieRepository.GetMoviesByGenrePagination(genreId, pageSize, page);
+
+        var movieCards = new List<MovieCardModel>();
+        
+        movieCards.AddRange( movies.Data.Select(m=>new MovieCardModel
+        {
+            Id = m.Id,
+            PosterUrl = m.PosterUrl,
+            Title = m.Title
+        }));
+
+        return new PagedResultSet<MovieCardModel>(movieCards, page, pageSize, movies.TotalRowCount);
     }
 }

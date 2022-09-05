@@ -18,6 +18,10 @@ public class CurrentUser : ICurrentUser
         + " " +
         _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Surname);
 
+    public string LastName => _httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c=> c.Type == ClaimTypes.Surname).Value;
+
+    public string FirstName => _httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c=> c.Type == ClaimTypes.GivenName).Value;
+
     public bool IsAdmin => throw new NotImplementedException();
 
     public bool IsAuthenticated => _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
