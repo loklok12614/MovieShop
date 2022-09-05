@@ -28,6 +28,8 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 
 // Current User
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
+// All Genres in NavBar
+builder.Services.AddScoped<IAllGenres, AllGenres>();
 
 builder.Services.AddHttpContextAccessor();
 

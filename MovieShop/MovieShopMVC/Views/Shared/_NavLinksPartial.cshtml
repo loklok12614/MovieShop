@@ -1,3 +1,6 @@
+@using MovieShopMVC.Infra
+@inject IAllGenres AllGenres
+
 
 
 <ul class="navbar-nav flex-grow-1">
@@ -7,8 +10,20 @@
     <li class="nav-item mx-2">
         <a class="nav-link text-light" asp-area="" asp-controller="Movies" asp-action="All" asp-route-pageNumber="1">All Movies</a>
     </li>
-    <li class="nav-item mx-2">
+    <li class="nav-item dropdown mx-2">
         @* <partial name="_GenreDropdown" model=""/> *@
-        <a class="nav-link text-light" asp-area="" asp-controller="Movies" asp-action="All" asp-route-pageNumber="1">Genres</a>
+        <a class="nav-link dropdown-toggle text-light" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Genres
+        </a>
+        <ul class="dropdown-menu bg-dark">
+            @foreach (var genre in AllGenres.Genres.Result)
+            {
+                <li>
+                    <a class="dropdown-item text-light" asp-controller="Movies" asp-action="GenreMovies" asp-route-id="@genre.Id">
+                        @genre.Name
+                    </a>
+                </li>
+            }
+        </ul>
     </li>
 </ul>
