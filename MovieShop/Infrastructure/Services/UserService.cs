@@ -36,10 +36,10 @@ public class UserService : IUserService
         return true;
     }
 
-    public async Task<bool> IsMoviePurchased(PurchaseRequestModel model)
+    public async Task<bool> IsMoviePurchased(int movieId, int userId)
     {
-        var moviesPurchased = await _purchaseRepository.GetAllPurchasesByUserId(model.UserId);
-        var movie = moviesPurchased.SingleOrDefault(m => m.MovieId == model.MovieId);
+        var moviesPurchased = await _purchaseRepository.GetAllPurchasesByUserId(userId);
+        var movie = moviesPurchased.SingleOrDefault(m => m.MovieId == movieId);
         if (movie == null)
         {
             return false;

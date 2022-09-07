@@ -1,14 +1,17 @@
 using System.Security.Claims;
+using ApplicationCore.Contracts.Services;
 
 namespace MovieShopMVC.Infra;
 
 public class CurrentUser : ICurrentUser
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IUserService _userService;
 
-    public CurrentUser(IHttpContextAccessor httpContextAccessor)
+    public CurrentUser(IHttpContextAccessor httpContextAccessor, IUserService userService)
     {
         _httpContextAccessor = httpContextAccessor;
+        _userService = userService;
     }
 
     public int UserId => Convert.ToInt32(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -30,4 +33,8 @@ public class CurrentUser : ICurrentUser
         .Value;
 
     public string ProfilePictureUrl => throw new NotImplementedException();
+    public async Task<bool> IsMoviePurchased(int movieId)
+    {
+        return await _userService.IsMoviePurchased(movieId, UserId);
+    }
 }

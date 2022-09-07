@@ -2,6 +2,10 @@
 @inject ICurrentUser currentUser
 @model ApplicationCore.Models.MovieDetailsModel
 
+@{
+    var moviePurchased = currentUser.IsMoviePurchased(Model.Id).Result;
+}
+
 <div class="">
     <div class="movie-details-banner-background position-absolute" style="background-image: url(@Model.BackdropUrl)">
     </div>
@@ -39,9 +43,27 @@
                 <button type="button" data-bs-toggle="modal" data-bs-target="#reviewModal" class="w-100 btn btn-sm btn-outline-secondary bg-link text-decoration-none text-white mb-4 py-0">
                     <i class="fa-regular fa-pen-to-square"></i> REVIEW
                 </button>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#buyModal" class="w-100 btn btn-sm bg-light mb-4 py-0">
-                    BUY $@Model.Price
-                </button>
+                
+                <form asp-controller="Home" asp-action="Index">
+                    <button type="submit" class="w-100 btn btn-sm btn-outline-secondary bg-link text-decoration-none text-white mb-4 py-0">
+                        <i class="fa-regular fa-heart"></i> FAVORITE
+                    </button>
+                </form>
+                
+                @{
+                    if (moviePurchased)
+                    {
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#buyModal" class="w-100 btn btn-sm bg-light mb-4 py-0">
+                            <i class="fa-solid fa-play"></i> PLAY
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#buyModal" class="w-100 btn btn-sm bg-light mb-4 py-0">
+                            BUY $@Model.Price
+                        </button>
+                    }
+                }
             </div>
         </div>
     </div>
@@ -74,9 +96,27 @@
         <button type="button" data-bs-toggle="modal" data-bs-target="#reviewModal" class="w-100 btn btn-outline-secondary bg-link text-dark text-decoration-none mb-4 py-0">
             <i class="fa-regular fa-pen-to-square"></i> REVIEW
         </button>
-        <button type="button" data-bs-toggle="modal" data-bs-target="#buyModal" class="w-100 btn bg-dark text-white mb-4 py-0">
-            BUY $@Model.Price
-        </button>
+        
+        <form>
+            <button type="button" onclick="" asp-controller="Home" asp-action="Index" class="w-100 btn btn-outline-secondary bg-link text-dark text-decoration-none mb-4 py-0">
+                <i class="fa-regular fa-heart"></i> FAVORITE
+            </button>
+        </form>
+
+        @{
+            if (moviePurchased)
+            {
+                <button type="button" data-bs-toggle="modal" data-bs-target="#buyModal" class="w-100 btn bg-dark text-white mb-4 py-0">
+                    <i class="fa-solid fa-play"></i> PLAY
+                </button>
+            }
+            else
+            {
+                <button type="button" data-bs-toggle="modal" data-bs-target="#buyModal" class="w-100 btn bg-dark text-white mb-4 py-0">
+                    BUY $@Model.Price
+                </button>
+            }
+        }
     </div>
 </div>
 

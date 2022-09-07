@@ -11,4 +11,5 @@ public interface ICurrentUser
     bool IsAuthenticated { get; }
     string Email { get; }
     string ProfilePictureUrl { get; }
+    Task<bool> IsMoviePurchased(int movieId);
 }

@@ -833,3 +833,92 @@ GO
 COMMIT;
 GO
 
+BEGIN TRANSACTION;
+GO
+
+DECLARE @var19 sysname;
+SELECT @var19 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Reviews]') AND [c].[name] = N'Rating');
+IF @var19 IS NOT NULL EXEC(N'ALTER TABLE [Reviews] DROP CONSTRAINT [' + @var19 + '];');
+ALTER TABLE [Reviews] ALTER COLUMN [Rating] decimal(3,2) NOT NULL;
+ALTER TABLE [Reviews] ADD DEFAULT 0.0 FOR [Rating];
+GO
+
+DECLARE @var20 sysname;
+SELECT @var20 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Reviews]') AND [c].[name] = N'CreatedDate');
+IF @var20 IS NOT NULL EXEC(N'ALTER TABLE [Reviews] DROP CONSTRAINT [' + @var20 + '];');
+ALTER TABLE [Reviews] ALTER COLUMN [CreatedDate] datetime2 NOT NULL;
+ALTER TABLE [Reviews] ADD DEFAULT (getdate()) FOR [CreatedDate];
+GO
+
+DECLARE @var21 sysname;
+SELECT @var21 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Purchases]') AND [c].[name] = N'PurchaseNumber');
+IF @var21 IS NOT NULL EXEC(N'ALTER TABLE [Purchases] DROP CONSTRAINT [' + @var21 + '];');
+ALTER TABLE [Purchases] ALTER COLUMN [PurchaseNumber] nvarchar(max) NULL;
+GO
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220906163200_ModifyPurchaseTable', N'7.0.0-preview.7.22376.2');
+GO
+
+COMMIT;
+GO
+
+BEGIN TRANSACTION;
+GO
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220906164856_ModifyPurchaseTable1', N'7.0.0-preview.7.22376.2');
+GO
+
+COMMIT;
+GO
+
+BEGIN TRANSACTION;
+GO
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220906172036_ModifyPurchaseTable2', N'7.0.0-preview.7.22376.2');
+GO
+
+COMMIT;
+GO
+
+BEGIN TRANSACTION;
+GO
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220906205259_ModifyPurchaseTable3', N'7.0.0-preview.7.22376.2');
+GO
+
+COMMIT;
+GO
+
+BEGIN TRANSACTION;
+GO
+
+DECLARE @var22 sysname;
+SELECT @var22 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Purchases]') AND [c].[name] = N'PurchaseNumber');
+IF @var22 IS NOT NULL EXEC(N'ALTER TABLE [Purchases] DROP CONSTRAINT [' + @var22 + '];');
+ALTER TABLE [Purchases] ALTER COLUMN [PurchaseNumber] uniqueidentifier NOT NULL;
+ALTER TABLE [Purchases] ADD DEFAULT '00000000-0000-0000-0000-000000000000' FOR [PurchaseNumber];
+GO
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220906205711_ModifyPurchaseTable4', N'7.0.0-preview.7.22376.2');
+GO
+
+COMMIT;
+GO
+
