@@ -25,6 +25,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();
+builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
 
 builder.Services.AddScoped<IAccountService, AccountService>();
 

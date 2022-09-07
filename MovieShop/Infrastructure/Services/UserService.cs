@@ -8,20 +8,23 @@ namespace Infrastructure.Services;
 public class UserService : IUserService
 {
     private readonly IPurchaseRepository _purchaseRepository;
+    private readonly IFavoriteRepository _favoriteRepository;
 
-    public UserService(IPurchaseRepository purchaseRepository)
+    public UserService(IPurchaseRepository purchaseRepository, IFavoriteRepository favoriteRepository)
     {
         _purchaseRepository = purchaseRepository;
+        _favoriteRepository = favoriteRepository;
     }
 
-    public async Task<bool> PurchaseMovie(PurchaseRequestModel model)
+    // Purchase
+    public async Task<Guid> PurchaseMovie(PurchaseRequestModel model)
     {
         // check if movie is purchased
         var moviesPurchased = await _purchaseRepository.GetAllPurchasesByUserId(model.UserId);
         var movie = moviesPurchased.SingleOrDefault(m => m.MovieId == model.MovieId);
         if (movie != null)
         {
-            throw new Exception("You have owned this movie");
+            return Guid.Empty;
         }
         
         var dbPurchase = new Purchase
@@ -33,7 +36,8 @@ public class UserService : IUserService
         };
 
         var createdPurchase = await _purchaseRepository.AddPurchase(dbPurchase);
-        return true;
+
+        return createdPurchase.PurchaseNumber;
     }
 
     public async Task<bool> IsMoviePurchased(int movieId, int userId)
@@ -82,5 +86,31 @@ public class UserService : IUserService
         }));
         return new PagedResultSet<MovieCardPurchasedModel>(movieCardsPurchased, page, pageSize,
             moviesPurchased.TotalRowCount);
+    }
+
+    // Favorite
+    public async Task<bool> FavoriteMovie(FavoriteRequestModel model)
+    {
+        var moviesFavorited = await _favoriteRepository.GetAllFavoritesByUserId(model.UserId);
+        var movie = moviesFavorited.SingleOrDefault(m => m.MovieId == model.MovieId);
+        if (movie != null)
+        {
+            return false;
+            //throw new Exception("You have favorited this movie");
+        }
+        
+        var dbFavorite = new Favorite
+        {
+            MovieId = model.MovieId,
+            UserId = model.UserId,
+        };
+
+        var createdFavorite = await _favoriteRepository.AddFavorite(dbFavorite);
+        if (createdFavorite == null)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -58,8 +58,8 @@ namespace MovieShopMVC.Controllers
             {
                 MovieId = movieId, UserId = userId, TotalPrice = totalPrice
             };
-            var result = await _userService.PurchaseMovie(model);
-            return RedirectToAction("Details", "Movies", new { id = movieId });
+            var purchasedNumber = await _userService.PurchaseMovie(model);
+            return RedirectToAction("Details", "Movies", new { id = movieId, purchaseNumber = purchasedNumber });
         }
         
         [HttpPost]

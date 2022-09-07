@@ -14,10 +14,12 @@ namespace MovieShopMVC.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService, IHttpContextAccessor httpContextAccessor)
         {
             _accountService = accountService;
+            _httpContextAccessor = httpContextAccessor;
         }
         public IActionResult Login()
         {
@@ -47,7 +49,7 @@ namespace MovieShopMVC.Controllers
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             // create cookie with some exp time
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-            // redirect to home page
+            // redirect
             return LocalRedirect("~/");
         }
 

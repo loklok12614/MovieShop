@@ -24,6 +24,8 @@ public class MovieDetailsModel
     public int? RunTime { get; set; }
     public decimal? Price { get; set; }
 
+    public Guid? PurchasedSuccessNumber { get; set; }
+
     public List<GenreModel> Genres { get; set; }
 
     public List<TrailerModel> Trailers { get; set; }

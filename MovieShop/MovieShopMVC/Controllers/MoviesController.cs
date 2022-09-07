@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApplicationCore.Contracts.Services;
+using ApplicationCore.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MovieShopMVC.Controllers
@@ -17,9 +18,11 @@ namespace MovieShopMVC.Controllers
             _logger = logger;
             _movieService = movieService;
         }
-        public async Task<IActionResult> Details(int id)
+
+        public async Task<IActionResult> Details(int id, Guid purchaseNumber)
         {
             var movieDetails = await _movieService.GetMovieDetails(id);
+            movieDetails.PurchasedSuccessNumber = purchaseNumber;
             return View(movieDetails);
         }
 
