@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace ApplicationCore.Entities;
 
 public class Purchase
@@ -6,7 +8,7 @@ public class Purchase
     public int UserId { get; set; }
 
     public DateTime? PurchaseDateTime { get; set; }
-    public string PurchaseNumber { get; set; }
+    public Guid PurchaseNumber { get; set; }
     public decimal? TotalPrice { get; set; }
     
     //Nav prop

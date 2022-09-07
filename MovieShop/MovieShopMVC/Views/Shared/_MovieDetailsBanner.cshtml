@@ -1,3 +1,5 @@
+@using MovieShopMVC.Infra
+@inject ICurrentUser currentUser
 @model ApplicationCore.Models.MovieDetailsModel
 
 <div class="">
@@ -117,7 +119,7 @@
 <!-- Buy Modal -->
 <div class="modal fade" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <form class="modal-content" asp-controller="User" asp-action="BuyMovie" asp-route-movieId="@Model.Id" asp-route-userId="@currentUser.UserId" asp-route-totalPrice="@Model.Price">
             <div class="modal-header">
                 <h5 class="modal-title" id="buyModalLabel">Purchase</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -132,8 +134,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Purchase</button>
+                <button type="submit" class="btn btn-primary">Purchase</button>
             </div>
-        </div>
+        </form>
     </div>
 </div>

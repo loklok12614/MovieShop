@@ -1,0 +1,54 @@
+@model ApplicationCore.Models.MovieCardPurchasedModel
+
+@{
+    var purchaseDetailsModalId = "purchaseDetailsModal" + Model.Id;
+    var purchaseDetailsModalLabel = "purchaseDetailsModalLabel" + Model.Id;
+}
+
+<div class="card mb-4">
+    <a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.Id">
+        <img src="@Model.PosterUrl" class="img-fluid" alt="@Model.Title" title="@Model.Title"/>
+    </a>
+    <button type="button" data-bs-toggle="modal" data-bs-target="#@purchaseDetailsModalId" class="w-100 btn btn-light">
+        Purchase Details
+    </button>
+</div>
+
+<div class="modal fade" id="@purchaseDetailsModalId" tabindex="-1" aria-labelledby="@purchaseDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog bg-light" style="font-size: 10px;">
+        <div class="modal-header">
+            <h5 class="modal-title" id="buyModalLabel">Purchase Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-3">
+                    <img src="@Model.PosterUrl" class="img-fluid" alt="@Model.Title" title="@Model.Title"/>
+                </div>
+                
+                <div class="col-9">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <i class="fa-solid fa-calendar-days"></i> Purchased Date 
+                            <span class="badge rounded-pill bg-secondary">
+                                @Model.PurchaseDateTime.Value.ToString("MMM dd, yyyy")
+                            </span>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fa-solid fa-money-bill-1"></i> Price
+                            <span class="badge rounded-pill bg-secondary">
+                                @string.Format("{0:C2}", Model.TotalPrice)
+                            </span>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fa-solid fa-circle-check"></i> Purchase Number
+                            <span class="badge rounded-pill bg-secondary">
+                                @Model.PurchaseNumber
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

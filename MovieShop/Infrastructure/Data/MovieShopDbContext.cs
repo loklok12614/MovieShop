@@ -91,7 +91,6 @@ public class MovieShopDbContext : DbContext
     {
         builder.ToTable("Purchases");
         builder.HasKey(p => new { p.MovieId, p.UserId });
-        builder.Property(p => p.PurchaseNumber).ValueGeneratedOnAdd();
 
         builder.Property(p => p.TotalPrice).HasColumnType("decimal(5, 2)").HasDefaultValue(0.0m);
 

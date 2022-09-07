@@ -24,6 +24,8 @@ builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
+builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();
+
 builder.Services.AddScoped<IAccountService, AccountService>();
 
 // Current User
