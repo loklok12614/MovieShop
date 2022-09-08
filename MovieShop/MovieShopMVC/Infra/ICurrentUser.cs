@@ -12,4 +12,5 @@ public interface ICurrentUser
     string Email { get; }
     string ProfilePictureUrl { get; }
     Task<bool> IsMoviePurchased(int movieId);
+    Task<bool> IsMovieFavorited(int movieId);
 }

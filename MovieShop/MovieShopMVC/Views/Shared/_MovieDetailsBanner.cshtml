@@ -1,9 +1,11 @@
 @using MovieShopMVC.Infra
+@using ApplicationCore.Models
 @inject ICurrentUser currentUser
 @model ApplicationCore.Models.MovieDetailsModel
 
 @{
     var moviePurchased = currentUser.IsMoviePurchased(Model.Id).Result;
+    var movieFavorited = currentUser.IsMovieFavorited(Model.Id).Result;
 }
 
 <div class="">
@@ -32,7 +34,7 @@
                     </div>
                 </div>
                 
-                <div class="badge bg-success mb-2">8.9</div>
+                <div class="badge bg-success mb-2">@Model.Rating</div>
                 
                 <div class="fs-6">
                     @Model.Overview
@@ -44,11 +46,24 @@
                     <i class="fa-regular fa-pen-to-square"></i> REVIEW
                 </button>
                 
-                <form asp-controller="Home" asp-action="Index">
-                    <button type="submit" class="w-100 btn btn-sm btn-outline-secondary bg-link text-decoration-none text-white mb-4 py-0">
-                        <i class="fa-regular fa-heart"></i> FAVORITE
-                    </button>
-                </form>
+                @{
+                    if (movieFavorited)
+                    {
+                        <form asp-controller="User" asp-action="RemoveFavoriteMovie" asp-route-movieId="@Model.Id" asp-route-userId="@currentUser.UserId">
+                            <button type="submit" class="w-100 btn btn-sm btn-outline-secondary bg-link text-decoration-none text-white mb-4 py-0">
+                                <i class="fa-solid fa-heart"></i> FAVORITE
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-controller="User" asp-action="FavoriteMovie" asp-route-movieId="@Model.Id" asp-route-userId="@currentUser.UserId">
+                            <button type="submit" class="w-100 btn btn-sm btn-outline-secondary bg-link text-decoration-none text-white mb-4 py-0">
+                                <i class="fa-regular fa-heart"></i> FAVORITE
+                            </button>
+                        </form>
+                    }
+                }
                 
                 @{
                     if (moviePurchased)
@@ -97,12 +112,25 @@
             <i class="fa-regular fa-pen-to-square"></i> REVIEW
         </button>
         
-        <form>
-            <button type="button" onclick="" asp-controller="Home" asp-action="Index" class="w-100 btn btn-outline-secondary bg-link text-dark text-decoration-none mb-4 py-0">
-                <i class="fa-regular fa-heart"></i> FAVORITE
-            </button>
-        </form>
-
+        @{
+            if (movieFavorited)
+            {
+                <form asp-controller="User" asp-action="RemoveFavoriteMovie" asp-route-movieId="@Model.Id" asp-route-userId="@currentUser.UserId">
+                    <button type="submit" class="w-100 btn btn-outline-secondary bg-link text-dark text-decoration-none mb-4 py-0">
+                        <i class="fa-solid fa-heart"></i> FAVORITE
+                    </button>
+                </form>
+            }
+            else
+            {
+                <form asp-controller="User" asp-action="FavoriteMovie" asp-route-movieId="@Model.Id" asp-route-userId="@currentUser.UserId">
+                    <button type="submit" class="w-100 btn btn-outline-secondary bg-link text-dark text-decoration-none mb-4 py-0">
+                        <i class="fa-regular fa-heart"></i> FAVORITE
+                    </button>
+                </form>
+            }
+        }
+        
         @{
             if (moviePurchased)
             {
@@ -122,36 +150,39 @@
 
 
 <!-- Review Modal -->
+@{
+    int rating = 0;
+    string reviewText = "";
+}
 <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <form class="modal-content" asp-controller="User" asp-action="WriteReview" 
+              asp-route-movieId="@Model.Id" asp-route-userId="@currentUser.UserId" asp-route-rating="@rating" asp-route-reviewText="@reviewText">
             <div class="modal-header">
                 <h5 class="modal-title" id="reviewModalLabel">Rate this movie</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="dropdown mb-3">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Your Rating
-                    </button>
-                    <ul class="dropdown-menu">
-                        @for (int i = 1; i <= 10; i++)
+                <select class="form-select rating mb-3" asp-for="@rating" aria-label="Default select example">
+                    <option selected>Your Rating</option>
+                    @{
+                        for (int i = 1; i <= 10; i++)
                         {
-                            <li><a class="dropdown-item" href="#">@i</a></li>
+                            <option value="@i">@i</option>
                         }
-                    </ul>
-                </div>
-                
+                    }
+                </select>
+
                 <div class="form-floating mb-3">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                    <label for="floatingTextarea">Write your comments</label>
+                    <textarea asp-for="@reviewText" class="form-control reviewText" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                    <label asp-for="@reviewText">Write your comments</label>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 

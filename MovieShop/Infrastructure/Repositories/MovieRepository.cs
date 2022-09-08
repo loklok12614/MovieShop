@@ -21,6 +21,7 @@ public class MovieRepository : IMovieRepository
         var movieDetails = await _movieShopDbContext.Movies
             .Include(m => m.GenresOfMovie).ThenInclude(mg => mg.Genre)
             .Include(m => m.CastsOfMovie).ThenInclude(mc => mc.Cast)
+            .Include(m=> m.UsersReviewed)
             .Include(m => m.Trailers)
             .FirstOrDefaultAsync(m => m.Id == id);
         return movieDetails;

@@ -13,5 +13,11 @@ public interface IUserService
         int page = 1);
     
     // Favorite
-    Task<bool> FavoriteMovie(FavoriteRequestModel model);
+    Task<int> FavoriteMovie(FavoriteRequestModel model);
+    Task<int> RemoveFavoriteMovie(FavoriteRequestModel model);
+    Task<bool> IsMovieFavorited(int movieId, int userId);
+    Task<PagedResultSet<MovieCardModel>> GetAllFavoritesByUserPagination(int userId, int pageSize = 30, int page = 1);
+    
+    // Review
+    Task<int> ReviewMovie(ReviewRequestModel model);
 }

@@ -37,17 +37,7 @@ public class PurchaseRepository : IPurchaseRepository
         var purchases = await _movieShopDbContext.Purchases
             .Include(p => p.Movie)
             .Where(p=>p.UserId==userId)
-            .OrderByDescending(p => p.Movie.Revenue)
-            .Select(p=> new Purchase
-            {
-                UserId = p.UserId,
-                MovieId = p.MovieId,
-                PurchaseDateTime = p.PurchaseDateTime,
-                PurchaseNumber = p.PurchaseNumber,
-                Movie = p.Movie,
-                TotalPrice = p.TotalPrice,
-                User = p.User
-            })
+            .OrderByDescending(p => p.PurchaseDateTime)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();

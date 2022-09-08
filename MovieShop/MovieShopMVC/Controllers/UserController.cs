@@ -34,9 +34,11 @@ namespace MovieShopMVC.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> Favorites()
+        public async Task<IActionResult> Favorites(int pageSize=30, int page=1)
         {
-            return View();
+            var pagedMoviesFavorited =
+                await _userService.GetAllFavoritesByUserPagination(_currentUser.UserId, pageSize, page);
+            return View(pagedMoviesFavorited);
         }
         
         [HttpGet]
@@ -63,9 +65,39 @@ namespace MovieShopMVC.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> FavoriteMovie()
+        public async Task<IActionResult> FavoriteMovie(int movieId, int userId)
         {
-            return View();
+            FavoriteRequestModel model = new FavoriteRequestModel
+            {
+                MovieId = movieId, UserId = userId
+            };
+            var favoriteMovieId = await _userService.FavoriteMovie(model);
+            return RedirectToAction("Details", "Movies", new { id = favoriteMovieId });
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> RemoveFavoriteMovie(int movieId, int userId)
+        {
+            FavoriteRequestModel model = new FavoriteRequestModel
+            {
+                MovieId = movieId, UserId = userId
+            };
+            var removedMovieId = await _userService.RemoveFavoriteMovie(model);
+            return RedirectToAction("Details", "Movies", new { id = removedMovieId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> WriteReview(int movieId, int userId, int rating, string reviewText)
+        {
+            ReviewRequestModel model = new ReviewRequestModel
+            {
+                MovieId = movieId,
+                UserId = userId,
+                Rating = rating,
+                ReviewText = reviewText
+            };
+            var reviewedMovieId = await _userService.ReviewMovie(model);
+            return RedirectToAction("Details", "Movies", new { id = reviewedMovieId });
         }
     }
 }

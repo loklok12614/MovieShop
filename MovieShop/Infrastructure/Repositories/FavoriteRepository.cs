@@ -24,18 +24,35 @@ public class FavoriteRepository : IFavoriteRepository
         return favorites;
     }
 
-    public Task<PagedResultSet<Favorite>> GetAllFavoritesByUserIdPagination(int userId, int pageSize = 30, int page = 1)
+    public async Task<PagedResultSet<Favorite>> GetAllFavoritesByUserIdPagination(int userId, int pageSize = 30, int page = 1)
     {
-        throw new NotImplementedException();
+        var totalMoviesCountOfFavorited = await _movieShopDbContext.Favorites.Where(f => f.UserId == userId).CountAsync();
+        if (totalMoviesCountOfFavorited == 0)
+        {
+            var data = new List<Favorite>();
+            return new PagedResultSet<Favorite>(data, page, pageSize, totalMoviesCountOfFavorited);
+        }
+
+        var favorites = await _movieShopDbContext.Favorites
+            .Include(f => f.Movie)
+            .Where(f => f.UserId == userId)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize).ToListAsync();
+        
+        return new PagedResultSet<Favorite>(favorites, page, pageSize, totalMoviesCountOfFavorited);
     }
 
-    public Task<Favorite> AddFavorite(Favorite favorite)
+    public async Task<Favorite> AddFavorite(Favorite favorite)
     {
-        throw new NotImplementedException();
+        _movieShopDbContext.Favorites.Add(favorite);
+        await _movieShopDbContext.SaveChangesAsync();
+        return favorite;
     }
 
-    public Task<int> RemoveFavorite(Favorite favorite)
+    public async Task<Favorite> RemoveFavorite(Favorite favorite)
     {
-        throw new NotImplementedException();
+        _movieShopDbContext.Favorites.Remove(favorite);
+        await _movieShopDbContext.SaveChangesAsync();
+        return favorite;
     }
 }

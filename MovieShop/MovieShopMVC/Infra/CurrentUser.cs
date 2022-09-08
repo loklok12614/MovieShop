@@ -37,4 +37,9 @@ public class CurrentUser : ICurrentUser
     {
         return await _userService.IsMoviePurchased(movieId, UserId);
     }
+
+    public async Task<bool> IsMovieFavorited(int movieId)
+    {
+        return await _userService.IsMovieFavorited(movieId, UserId);
+    }
 }

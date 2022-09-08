@@ -83,7 +83,7 @@ public class MovieShopDbContext : DbContext
         builder.HasKey(r => new { r.MovieId, r.UserId });
 
         builder.Property(r => r.ReviewText).HasMaxLength(20000);
-        builder.Property(r => r.Rating).HasColumnType("decimal(3, 2)");
+        builder.Property(r => r.Rating).HasColumnType("decimal(4, 2)");
         builder.Property(r => r.CreatedDate).HasDefaultValueSql("getdate()");
     }
 
