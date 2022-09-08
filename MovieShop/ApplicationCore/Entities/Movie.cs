@@ -25,7 +25,7 @@ public class Movie
     public string? UpdatedBy { get; set; }
     public string? CreatedBy { get; set; }
 
-    public decimal? Rating { get; set; }
+    public decimal? Rating => UsersReviewed.Count > 0 ? UsersReviewed.Average(r => r.Rating) : 0;
 
     public ICollection<MovieGenre> GenresOfMovie { get; set; } // One Movie has many Genre
     public ICollection<MovieCast> CastsOfMovie { get; set; }

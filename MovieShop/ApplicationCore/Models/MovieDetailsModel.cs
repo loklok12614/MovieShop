@@ -1,3 +1,5 @@
+using ApplicationCore.Entities;
+
 namespace ApplicationCore.Models;
 
 public class MovieDetailsModel
@@ -25,7 +27,7 @@ public class MovieDetailsModel
     public decimal? Price { get; set; }
 
     public decimal? Rating { get; set; }
-
+    
     public Guid? PurchasedSuccessNumber { get; set; }
 
     public List<GenreModel> Genres { get; set; }

@@ -10,7 +10,7 @@
             <h4>Your Library :  @Model.TotalRowCount</h4>
             @foreach (var movieCard in Model?.Data)
             {
-                <div class="col-12 col-sm-6 col-lg-3 col-xl-2">
+                <div class="col-12 col-sm-6 col-lg-3 col-xl-2 text-center">
                     @* call the partial view *@
                     <partial name="_MovieCardPurchased" model="movieCard"/>
                     

@@ -6,6 +6,9 @@
 @{
     var moviePurchased = currentUser.IsMoviePurchased(Model.Id).Result;
     var movieFavorited = currentUser.IsMovieFavorited(Model.Id).Result;
+    var yourReview = currentUser.GetUserReviewForMovie(Model.Id).Result;
+    int rating = (int)yourReview.Rating;
+    string reviewText = yourReview.ReviewText;
 }
 
 <div class="">
@@ -151,40 +154,85 @@
 
 <!-- Review Modal -->
 @{
-    int rating = 0;
-    string reviewText = "";
-}
-<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <form class="modal-content" asp-controller="User" asp-action="WriteReview" 
-              asp-route-movieId="@Model.Id" asp-route-userId="@currentUser.UserId" asp-route-rating="@rating" asp-route-reviewText="@reviewText">
-            <div class="modal-header">
-                <h5 class="modal-title" id="reviewModalLabel">Rate this movie</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <select class="form-select rating mb-3" asp-for="@rating" aria-label="Default select example">
-                    <option selected>Your Rating</option>
-                    @{
-                        for (int i = 1; i <= 10; i++)
-                        {
-                            <option value="@i">@i</option>
-                        }
-                    }
-                </select>
+    if (yourReview.UserId == 0) // First review on this movie
+    {
+        <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form class="modal-content" asp-controller="User" asp-action="WriteReview" 
+                      asp-route-movieId="@Model.Id" asp-route-userId="@currentUser.UserId" asp-route-rating="@rating" asp-route-reviewText="@reviewText">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="reviewModalLabel">Rate this movie</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <select class="form-select rating mb-3" asp-for="@rating" aria-label="Default select example">
+                            <option selected>Your Rating</option>
+                            @{
+                                for (int i = 1; i <= 10; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            }
+                        </select>
 
-                <div class="form-floating mb-3">
-                    <textarea asp-for="@reviewText" class="form-control reviewText" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                    <label asp-for="@reviewText">Write your comments</label>
+                        <div class="form-floating mb-3">
+                            <textarea asp-for="@reviewText" class="form-control reviewText" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                            <label asp-for="@reviewText">Write your comments</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+    else //User has made an review
+    {
+        <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="reviewModalLabel">Edit Your Review</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form asp-controller="User" asp-action="EditReview" 
+                              asp-route-movieId="@Model.Id" asp-route-userId="@currentUser.UserId" asp-route-rating="@rating" asp-route-reviewText="@reviewText">
+                            <select class="form-select rating mb-3" asp-for="@rating" aria-label="Default select example">
+                                <option selected>Your Rating</option>
+                                @{
+                                    for (int i = 1; i <= 10; i++)
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                }
+                            </select>
+
+                            <div class="form-floating mb-3">
+                                <textarea asp-for="@reviewText" class="form-control reviewText" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                <label asp-for="@reviewText">Write your comments</label>
+                            </div>
+                            
+                            <div class="float-end">
+                                <button type="submit" class="btn btn-info">Edit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <form asp-controller="User" asp-action="DeleteReview" asp-route-movieId="@Model.Id" asp-route-userId="@currentUser.UserId">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </form>
-    </div>
-</div>
+        </div>
+    }
+}
+
+
 
 
 <!-- Buy Modal -->

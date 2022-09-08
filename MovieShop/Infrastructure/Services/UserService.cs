@@ -100,7 +100,7 @@ public class UserService : IUserService
         var movie = moviesFavorited.SingleOrDefault(m => m.MovieId == model.MovieId);
         if (movie != null)
         {
-            return 0;
+            return model.MovieId;
             //throw new Exception("You have favorited this movie");
         }
         
@@ -117,13 +117,13 @@ public class UserService : IUserService
     public async Task<int> RemoveFavoriteMovie(FavoriteRequestModel model)
     {
         var moviesFavorited = await _favoriteRepository.GetAllFavoritesByUserId(model.UserId);
-        var movie = moviesFavorited.SingleOrDefault(m => m.MovieId == model.MovieId);
-        if (movie == null)
+        var favoriteToRemove = moviesFavorited.SingleOrDefault(m => m.MovieId == model.MovieId);
+        if (favoriteToRemove == null)
         {
-            return 0;
+            return model.MovieId;
         }
 
-        var removedFavorite = await _favoriteRepository.RemoveFavorite(movie);
+        var removedFavorite = await _favoriteRepository.RemoveFavorite(favoriteToRemove);
         return removedFavorite.MovieId;
     }
     public async Task<bool> IsMovieFavorited(int movieId, int userId)
@@ -156,7 +156,7 @@ public class UserService : IUserService
         var movie = moviesReviewd.SingleOrDefault(m => m.MovieId == model.MovieId);
         if (movie != null)
         {
-            return 0;
+            return model.MovieId;
         }
 
         var dbReview = new Review
@@ -170,5 +170,56 @@ public class UserService : IUserService
         var createdReview = await _reviewRepository.AddReview(dbReview);
         
         return createdReview.MovieId;
+    }
+
+    public async Task<int> DeleteReview(int movieId, int userId)
+    {
+        var reviews = await _reviewRepository.GetAllReviewsByUserId(userId);
+        var reviewToDelete = reviews.SingleOrDefault(r => r.MovieId == movieId);
+        if (reviewToDelete == null)
+        {
+            return movieId; //no review found
+        }
+
+        var deletedReview = await _reviewRepository.RemoveReview(reviewToDelete);
+        return deletedReview.MovieId;
+    }
+
+    public async Task<int> EditReview(ReviewRequestModel model)
+    {
+        var reviews = await _reviewRepository.GetAllReviewsByUserId(model.UserId);
+        var reviewToUpdate = reviews.SingleOrDefault(r => r.MovieId == model.MovieId);
+        if (reviewToUpdate == null)
+        {
+            return model.MovieId; //no review found
+        }
+
+        reviewToUpdate.Rating = model.Rating;
+        reviewToUpdate.ReviewText = model.ReviewText;
+        var updatedReview = await _reviewRepository.UpdateReview(reviewToUpdate);
+        return updatedReview.MovieId;
+    }
+
+    public async Task<ReviewRequestModel> GetReviewByUserIdAndMovieId(int userId, int movieId)
+    {
+        var allReviewsByUser = await _reviewRepository.GetAllReviewsByUserId(userId);
+        var userReviewOnMovie = allReviewsByUser.SingleOrDefault(r => r.MovieId == movieId);
+        if (userReviewOnMovie == null)
+        {
+            // If User never reviewed this movie, return a model with empty value
+            return new ReviewRequestModel
+            {
+                MovieId = 0, UserId = 0, Rating = 0, ReviewText = ""
+            };
+        }
+
+        var model = new ReviewRequestModel
+        {
+            MovieId = userReviewOnMovie.MovieId,
+            UserId = userReviewOnMovie.UserId,
+            Rating = userReviewOnMovie.Rating,
+            ReviewText = userReviewOnMovie.ReviewText
+        };
+        return model;
     }
 }

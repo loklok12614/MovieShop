@@ -1,5 +1,7 @@
 using System.Security.Claims;
 using ApplicationCore.Contracts.Services;
+using ApplicationCore.Entities;
+using ApplicationCore.Models;
 
 namespace MovieShopMVC.Infra;
 
@@ -41,5 +43,10 @@ public class CurrentUser : ICurrentUser
     public async Task<bool> IsMovieFavorited(int movieId)
     {
         return await _userService.IsMovieFavorited(movieId, UserId);
+    }
+
+    public async Task<ReviewRequestModel> GetUserReviewForMovie(int movieId)
+    {
+        return await _userService.GetReviewByUserIdAndMovieId(UserId, movieId);
     }
 }

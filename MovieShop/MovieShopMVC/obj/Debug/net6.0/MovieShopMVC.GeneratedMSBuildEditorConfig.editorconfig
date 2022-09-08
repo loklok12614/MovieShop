@@ -107,16 +107,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/Views/User/BuyMovie.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9CdXlNb3ZpZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/Views/User/EditProfile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9FZGl0UHJvZmlsZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/Views/User/FavoriteMovie.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9GYXZvcml0ZU1vdmllLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/Views/User/Favorites.cshtml]
@@ -125,10 +117,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/Views/User/Purchases.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9QdXJjaGFzZXMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/Views/User/WriteReview.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9Xcml0ZVJldmlldy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/Views/_ViewImports.cshtml]

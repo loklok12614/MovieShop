@@ -1,3 +1,6 @@
+using ApplicationCore.Entities;
+using ApplicationCore.Models;
+
 namespace MovieShopMVC.Infra;
 
 public interface ICurrentUser
@@ -13,4 +16,6 @@ public interface ICurrentUser
     string ProfilePictureUrl { get; }
     Task<bool> IsMoviePurchased(int movieId);
     Task<bool> IsMovieFavorited(int movieId);
+
+    Task<ReviewRequestModel> GetUserReviewForMovie(int movieId);
 }

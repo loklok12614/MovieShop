@@ -20,4 +20,7 @@ public interface IUserService
     
     // Review
     Task<int> ReviewMovie(ReviewRequestModel model);
+    Task<int> DeleteReview(int movieId, int userId);
+    Task<int> EditReview(ReviewRequestModel model);
+    Task<ReviewRequestModel> GetReviewByUserIdAndMovieId(int userId, int movieId);
 }

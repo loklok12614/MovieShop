@@ -62,7 +62,7 @@ public class MovieService : IMovieService
             ReleaseDate = movieDetails.ReleaseDate,
             RunTime = movieDetails.RunTime,
             Price = movieDetails.Price,
-            Rating = movieDetails.UsersReviewed.Count>0 ? movieDetails.UsersReviewed.Average(r=>r.Rating) : 0
+            Rating = movieDetails.Rating
         };
 
         foreach (var trailer in movieDetails.Trailers)
