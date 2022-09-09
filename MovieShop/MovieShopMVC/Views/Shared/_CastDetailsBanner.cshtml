@@ -45,7 +45,26 @@
     <div class="w-100 text-start text-dark px-5 py-1 d-md-none">
         <h3>@Model.Name</h3>
                     
-        <p class="text-muted" style="font-size: 12px">@Model.Gender</p>
+        @{
+            switch (@Model.Gender)
+            {
+                case "0": 
+                    <p class="text-muted" style="font-size: 12px">Not Applicable</p>
+                    break;
+                case "1": 
+                    <p class="text-muted" style="font-size: 12px">Female</p>
+                    break;
+                case "2": 
+                    <p class="text-muted" style="font-size: 12px">Male</p>
+                    break;
+                case "3": 
+                    <p class="text-muted" style="font-size: 12px">Non-binary</p>
+                    break;
+                default: 
+                    <p class="text-muted" style="font-size: 12px">Chooses not to identify</p>
+                    break;
+            }
+        }
 
         <div class="fs-6 mb-4">
             Mauris lobortis lorem id augue tincidunt, ac volutpat tortor ornare. Ut eu tortor accumsan, blandit tortor ac, lobortis nisi. Nam eget erat turpis. Proin sed dolor turpis. Quisque interdum sed sapien a finibus. Nam molestie sem vehicula, lacinia nisl a, sagittis tellus. Curabitur ultrices tincidunt turpis vitae venenatis. Mauris vitae ultricies urna. Integer sollicitudin mi faucibus cursus auctor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
