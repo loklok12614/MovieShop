@@ -39,6 +39,12 @@ public class AccountService : IAccountService
         };
     }
 
+    public async Task<bool> CheckEmail(string email)
+    {
+        var emailInDb = await _userRepository.GetUserByEmail(email);
+        return emailInDb != null && true; //return true if email already exist
+    }
+
     public async Task<int> RegisterUser(UserRegisterModel model)
     {
         // check if email exists in database

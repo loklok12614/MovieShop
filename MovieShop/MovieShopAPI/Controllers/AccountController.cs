@@ -39,6 +39,14 @@ namespace MovieShopAPI.Controllers
 
             return Ok(userId);
         }
+
+        [HttpGet]
+        [Route("check-email")]
+        public async Task<IActionResult> CheckEmail(string email)
+        {
+            var result = await _accountService.CheckEmail(email);
+            return Ok(result);
+        }
         
         [HttpPost]
         [Route("login")]
