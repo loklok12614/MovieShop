@@ -13,5 +13,10 @@ public interface IMovieRepository
     
     //get top 30 grossing movies
     Task<List<Movie>> GetTop30GrossingMovies();
+    Task<List<Movie>> GetTop30RatedMovies();
     Task<PagedResultSet<Movie>> GetMoviesByGenrePagination(int genreId, int pageSize = 30, int page = 1);
+    
+    // Admin
+    Task<Movie> CreateMovie(Movie movie);
+    Task<Movie> EditMovie(Movie movie);
 }

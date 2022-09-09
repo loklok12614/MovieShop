@@ -45,7 +45,7 @@ public class CurrentUser : ICurrentUser
         return await _userService.IsMovieFavorited(movieId, UserId);
     }
 
-    public async Task<ReviewRequestModel> GetUserReviewForMovie(int movieId)
+    public async Task<ReviewModel> GetUserReviewForMovie(int movieId)
     {
         return await _userService.GetReviewByUserIdAndMovieId(UserId, movieId);
     }

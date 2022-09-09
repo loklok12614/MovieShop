@@ -56,6 +56,16 @@ public class MovieRepository : IMovieRepository
         var movies = await _movieShopDbContext.Movies.OrderByDescending(m => m.Revenue).Take(30).ToListAsync();
         return movies;
     }
+    
+    public async Task<List<Movie>> GetTop30RatedMovies()
+    {
+        var movies = await _movieShopDbContext.Movies
+            .Where(m=>m.UsersReviewed.Count > 0)
+            .OrderByDescending(m => m.UsersReviewed.Average(r=>r.Rating))
+            .Take(30)
+            .ToListAsync();
+        return movies;
+    }
 
     public async Task<PagedResultSet<Movie>> GetMoviesByGenrePagination(int genreId, int pageSize = 30, int page = 1)
     {
@@ -81,5 +91,19 @@ public class MovieRepository : IMovieRepository
 
         var pagedMovies = new PagedResultSet<Movie>(movies, page, pageSize, totalMoviesCountOfGenre);
         return pagedMovies;
+    }
+
+    public async Task<Movie> CreateMovie(Movie movie)
+    {
+        _movieShopDbContext.Movies.Add(movie);
+        await _movieShopDbContext.SaveChangesAsync();
+        return movie;
+    }
+
+    public async Task<Movie> EditMovie(Movie movie)
+    {
+        _movieShopDbContext.Entry(movie).State = EntityState.Modified;
+        await _movieShopDbContext.SaveChangesAsync();
+        return movie;
     }
 }

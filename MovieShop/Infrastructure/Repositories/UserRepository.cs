@@ -19,6 +19,12 @@ public class UserRepository : IUserRepository
         return user;
     }
 
+    public async Task<User> GetUserDetailsById(int userId)
+    {
+        var user = await _movieShopDbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
+        return user;
+    }
+
     public async Task<User> AddUser(User user)
     {
         _movieShopDbContext.Users.Add(user);

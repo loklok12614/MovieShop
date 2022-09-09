@@ -4,6 +4,8 @@ namespace ApplicationCore.Contracts.Services;
 
 public interface IUserService
 {
+    // User
+    Task<UserDetailsModel> GetUserDetailsById(int userId);
     // Purchase
     Task<Guid> PurchaseMovie(PurchaseRequestModel model);
     Task<bool> IsMoviePurchased(int movieId, int userId);
@@ -22,5 +24,6 @@ public interface IUserService
     Task<int> ReviewMovie(ReviewRequestModel model);
     Task<int> DeleteReview(int movieId, int userId);
     Task<int> EditReview(ReviewRequestModel model);
-    Task<ReviewRequestModel> GetReviewByUserIdAndMovieId(int userId, int movieId);
+    Task<ReviewModel> GetReviewByUserIdAndMovieId(int userId, int movieId);
+    Task<List<ReviewModel>> GetAllReviewsByUser(int userId);
 }

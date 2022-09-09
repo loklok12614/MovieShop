@@ -8,20 +8,52 @@ namespace Infrastructure.Services;
 
 public class UserService : IUserService
 {
+    private readonly IUserRepository _userRepository;
     private readonly IPurchaseRepository _purchaseRepository;
     private readonly IFavoriteRepository _favoriteRepository;
     private readonly IReviewRepository _reviewRepository;
-    private readonly IMovieRepository _movieRepository;
 
-    public UserService(IPurchaseRepository purchaseRepository, IFavoriteRepository favoriteRepository, IReviewRepository reviewRepository, IMovieRepository movieRepository)
+    public UserService(IPurchaseRepository purchaseRepository, IFavoriteRepository favoriteRepository, IReviewRepository reviewRepository, IUserRepository userRepository)
     {
+        _userRepository = userRepository;
         _purchaseRepository = purchaseRepository;
         _favoriteRepository = favoriteRepository;
         _reviewRepository = reviewRepository;
-        _movieRepository = movieRepository;
     }
 
     // Purchase
+    public async Task<UserDetailsModel> GetUserDetailsById(int userId)
+    {
+        var user = await _userRepository.GetUserDetailsById(userId);
+        if (user == null)
+        {
+            return null;
+        }
+
+        var userDetails = new UserDetailsModel
+        {
+            Id = user.Id,
+            Email = user.Email,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            PhoneNumber = user.PhoneNumber,
+            ProfilePictureUrl = user.ProfilePictureUrl,
+            DateOfBirth = user.DateOfBirth,
+        };
+        if (user.RolesOfUser != null)
+        {
+            foreach (var role in user.RolesOfUser)
+            {
+                userDetails.Roles.Add(new RoleModel
+                {
+                    Id = role.RoleId, Name = role.Role.Name
+                });
+            }
+        }
+
+        return userDetails;
+    }
+
     public async Task<Guid> PurchaseMovie(PurchaseRequestModel model)
     {
         // check if movie is purchased
@@ -200,20 +232,20 @@ public class UserService : IUserService
         return updatedReview.MovieId;
     }
 
-    public async Task<ReviewRequestModel> GetReviewByUserIdAndMovieId(int userId, int movieId)
+    public async Task<ReviewModel> GetReviewByUserIdAndMovieId(int userId, int movieId)
     {
         var allReviewsByUser = await _reviewRepository.GetAllReviewsByUserId(userId);
         var userReviewOnMovie = allReviewsByUser.SingleOrDefault(r => r.MovieId == movieId);
         if (userReviewOnMovie == null)
         {
             // If User never reviewed this movie, return a model with empty value
-            return new ReviewRequestModel
+            return new ReviewModel
             {
                 MovieId = 0, UserId = 0, Rating = 0, ReviewText = ""
             };
         }
 
-        var model = new ReviewRequestModel
+        var model = new ReviewModel
         {
             MovieId = userReviewOnMovie.MovieId,
             UserId = userReviewOnMovie.UserId,
@@ -221,5 +253,21 @@ public class UserService : IUserService
             ReviewText = userReviewOnMovie.ReviewText
         };
         return model;
+    }
+
+    public async Task<List<ReviewModel>> GetAllReviewsByUser(int userId)
+    {
+        var reviews = await _reviewRepository.GetAllReviewsByUserId(userId);
+        var reviewModels = new List<ReviewModel>();
+        
+        reviewModels.AddRange(reviews.Select(r=> new ReviewModel
+        {
+            CreatedDate = r.CreatedDate,
+            MovieId = r.MovieId,
+            UserId = r.UserId,
+            Rating = r.Rating,
+            ReviewText = r.ReviewText
+        }));
+        return reviewModels;
     }
 }

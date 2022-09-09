@@ -44,7 +44,8 @@ public class AccountService : IAccountService
         var user = await _userRepository.GetUserByEmail(model.Email);
         if (user != null)
         {
-            throw new Exception("Email already exists, try to login");
+            return 0;
+            // throw new Exception("Email already exists, try to login");
         }
         
         // create a random salt

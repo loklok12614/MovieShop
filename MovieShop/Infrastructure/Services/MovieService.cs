@@ -8,10 +8,12 @@ namespace Infrastructure.Services;
 public class MovieService : IMovieService
 {
     private readonly IMovieRepository _movieRepository;
+    private readonly IReviewRepository _reviewRepository;
     
-    public MovieService(IMovieRepository movieRepository)
+    public MovieService(IMovieRepository movieRepository, IReviewRepository reviewRepository)
     {
         _movieRepository = movieRepository;
+        _reviewRepository = reviewRepository;
     }
 
     public async Task<PagedResultSet<MovieCardModel>> GetAllMovies(int pageSize = 30, int page = 1)
@@ -42,9 +44,26 @@ public class MovieService : IMovieService
         return movieCards;
     }
 
+    public async Task<List<MovieCardModel>> GetTop30RatedMovies()
+    {
+        var movies = await _movieRepository.GetTop30RatedMovies();
+
+        var movieCards = new List<MovieCardModel>();
+        foreach (var movie in movies)
+        {
+            movieCards.Add(new MovieCardModel{Id = movie.Id, Title = movie.Title, PosterUrl = movie.PosterUrl});
+        }
+
+        return movieCards;
+    }
+
     public async Task<MovieDetailsModel> GetMovieDetails(int movieId)
     {
         var movieDetails = await _movieRepository.GetById(movieId);
+        if (movieDetails == null)
+        {
+            return null;
+        }
 
         var movieDetailsModel = new MovieDetailsModel
         {
@@ -65,28 +84,38 @@ public class MovieService : IMovieService
             Rating = movieDetails.Rating
         };
 
-        foreach (var trailer in movieDetails.Trailers)
+        if (movieDetails.Trailers != null)
         {
-            movieDetailsModel.Trailers.Add(new TrailerModel
+            foreach (var trailer in movieDetails.Trailers)
             {
-                Id = trailer.Id, Name = trailer.Name, TrailerUrl = trailer.TrailerUrl
-            });
+                movieDetailsModel.Trailers.Add(new TrailerModel
+                {
+                    Id = trailer.Id, Name = trailer.Name, TrailerUrl = trailer.TrailerUrl
+                });
+            }
         }
-        
-        foreach (var cast in movieDetails.CastsOfMovie)
+
+        if (movieDetails.CastsOfMovie != null)
         {
-            movieDetailsModel.Casts.Add(new CastModel
+            foreach (var cast in movieDetails.CastsOfMovie)
             {
-                Id = cast.CastId, Name = cast.Cast.Name, ProfilePath = cast.Cast.ProfilePath, TmdbUrl = cast.Cast.TmdbUrl, Character = cast.Character
-            });
+                movieDetailsModel.Casts.Add(new CastModel
+                {
+                    Id = cast.CastId, Name = cast.Cast.Name, ProfilePath = cast.Cast.ProfilePath,
+                    TmdbUrl = cast.Cast.TmdbUrl, Character = cast.Character
+                });
+            }
         }
-        
-        foreach (var genre in movieDetails.GenresOfMovie)
+
+        if (movieDetails.GenresOfMovie != null)
         {
-            movieDetailsModel.Genres.Add(new GenreModel
+            foreach (var genre in movieDetails.GenresOfMovie)
             {
-                Id = genre.GenreId, Name = genre.Genre.Name
-            });
+                movieDetailsModel.Genres.Add(new GenreModel
+                {
+                    Id = genre.GenreId, Name = genre.Genre.Name
+                });
+            }
         }
 
         return movieDetailsModel;
@@ -106,5 +135,23 @@ public class MovieService : IMovieService
         }));
 
         return new PagedResultSet<MovieCardModel>(movieCards, page, pageSize, movies.TotalRowCount);
+    }
+
+    public async Task<PagedResultSet<ReviewModel>> GetAllReviewsByMovieId(int movieId, int pageSize = 30, int page = 1)
+    {
+        var reviews = await _reviewRepository.GetAllReviewsByMovieIdPagination(movieId, pageSize, page);
+
+        var reviewModels = new List<ReviewModel>();
+        
+        reviewModels.AddRange(reviews.Data.Select(r=> new ReviewModel
+        {
+            MovieId = r.MovieId,
+            UserId = r.UserId,
+            CreatedDate = r.CreatedDate,
+            Rating = r.Rating,
+            ReviewText = r.ReviewText
+        }));
+        
+        return new PagedResultSet<ReviewModel>(reviewModels, page, pageSize, reviews.TotalRowCount);
     }
 }

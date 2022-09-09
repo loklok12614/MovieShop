@@ -17,5 +17,5 @@ public interface ICurrentUser
     Task<bool> IsMoviePurchased(int movieId);
     Task<bool> IsMovieFavorited(int movieId);
 
-    Task<ReviewRequestModel> GetUserReviewForMovie(int movieId);
+    Task<ReviewModel> GetUserReviewForMovie(int movieId);
 }
