@@ -22,13 +22,15 @@ public class AccountService : IAccountService
         var user = await _userRepository.GetUserByEmail(model.Email);
         if (user == null)
         {
-            throw new Exception("Incorrect credentials");
+            return null;
+            // throw new Exception("Incorrect credentials");
         }
 
         var hashedPassword = GetHashedPassword(model.Password, user.Salt);
         if (user.HashedPassword != hashedPassword)
         {
-            throw new Exception("Incorrect credentials");
+            return null;
+            // throw new Exception("Incorrect credentials");
         }
 
         return new UserLoginSuccessModel

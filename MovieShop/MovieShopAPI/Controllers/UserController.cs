@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApplicationCore.Contracts.Services;
 using ApplicationCore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,7 @@ namespace MovieShopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -37,10 +39,10 @@ namespace MovieShopAPI.Controllers
         // Purchase
         [HttpGet]
         [Route("purchases")]
-        public async Task<IActionResult> Purchases(int userId, int pageSize=30, int page=1)
+        public async Task<IActionResult> GetPurchasesByUser(int userId, int pageSize=30, int page=1)
         {
             // get all the movies purchased by the user, user id
-            // httpcontext.user.claims and then call the database and get the information to the view
+            // get userId from Jwt token, using HttpContext
             var pagedMoviesPurchased = await _userService.GetAllPurchasesByUserIdPagination(userId, pageSize, page);
             if (pagedMoviesPurchased.Data == null || !pagedMoviesPurchased.Data.Any())
             {
@@ -52,19 +54,15 @@ namespace MovieShopAPI.Controllers
         
         [HttpPost]
         [Route("purchase-movie")]
-        public async Task<IActionResult> BuyMovie(int movieId, int userId, decimal totalPrice)
+        public async Task<IActionResult> BuyMovie([FromBody] PurchaseRequestModel model)
         {
-            PurchaseRequestModel model = new PurchaseRequestModel
-            {
-                MovieId = movieId, UserId = userId, TotalPrice = totalPrice
-            };
             var purchasedNumber = await _userService.PurchaseMovie(model);
             if (purchasedNumber == Guid.Empty)
             {
                 return BadRequest(new { errorMessage = $"You already owned this movie" });
             }
 
-            return Ok(new { movieId = movieId, purchasedNumber = purchasedNumber });
+            return Ok(new { movieId = model.MovieId, purchasedNumber = purchasedNumber });
         }
         
         [HttpGet]
@@ -79,7 +77,7 @@ namespace MovieShopAPI.Controllers
         // Favorite
         [HttpGet]
         [Route("favorites")]
-        public async Task<IActionResult> Favorites(int userId, int pageSize=30, int page=1)
+        public async Task<IActionResult> GetFavoritesByUser(int userId, int pageSize=30, int page=1)
         {
             // get all the movies purchased by the user, user id
             // httpcontext.user.claims and then call the database and get the information to the view
@@ -94,12 +92,8 @@ namespace MovieShopAPI.Controllers
         
         [HttpPost]
         [Route("favorite-movie")]
-        public async Task<IActionResult> FavoriteMovie(int movieId, int userId)
+        public async Task<IActionResult> FavoriteMovie([FromBody] FavoriteRequestModel model)
         {
-            FavoriteRequestModel model = new FavoriteRequestModel
-            {
-                MovieId = movieId, UserId = userId
-            };
             var favoriteMovieId = await _userService.FavoriteMovie(model);
             if (favoriteMovieId == 0)
             {
@@ -111,12 +105,8 @@ namespace MovieShopAPI.Controllers
         
         [HttpDelete]
         [Route("un-favorite")]
-        public async Task<IActionResult> RemoveFavoriteMovie(int movieId, int userId)
+        public async Task<IActionResult> RemoveFavoriteMovie([FromBody] FavoriteRequestModel model)
         {
-            FavoriteRequestModel model = new FavoriteRequestModel
-            {
-                MovieId = movieId, UserId = userId
-            };
             var removedMovieId = await _userService.RemoveFavoriteMovie(model);
             if (removedMovieId == 0)
             {
@@ -136,15 +126,8 @@ namespace MovieShopAPI.Controllers
         // Review
         [HttpPost]
         [Route("add-review")]
-        public async Task<IActionResult> WriteReview(int movieId, int userId, int rating, string reviewText)
+        public async Task<IActionResult> WriteReview([FromBody] ReviewRequestModel model)
         {
-            ReviewRequestModel model = new ReviewRequestModel
-            {
-                MovieId = movieId,
-                UserId = userId,
-                Rating = rating,
-                ReviewText = reviewText
-            };
             var reviewedMovieId = await _userService.ReviewMovie(model);
             if(reviewedMovieId == 0)
             {
@@ -168,15 +151,8 @@ namespace MovieShopAPI.Controllers
         
         [HttpPut]
         [Route("edit-review")]
-        public async Task<IActionResult> EditReview(int movieId, int userId, int rating, string reviewText)
+        public async Task<IActionResult> EditReview([FromBody] ReviewRequestModel model)
         {
-            ReviewRequestModel model = new ReviewRequestModel
-            {
-                MovieId = movieId,
-                UserId = userId,
-                Rating = rating,
-                ReviewText = reviewText
-            };
             var reviewedMovieId = await _userService.EditReview(model);
             if (reviewedMovieId == 0)
             {
