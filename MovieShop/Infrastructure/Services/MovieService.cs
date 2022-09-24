@@ -118,6 +118,17 @@ public class MovieService : IMovieService
             }
         }
 
+        if (movieDetails.UsersReviewed != null)
+        {
+            foreach (var review in movieDetails.UsersReviewed)
+            {
+                movieDetailsModel.Reviews.Add(new ReviewModel
+                {
+                    UserId = review.UserId, MovieId = review.MovieId, Rating = review.Rating, ReviewText = review.ReviewText, CreatedDate = review.CreatedDate
+                });
+            }
+        }
+
         return movieDetailsModel;
     }
 

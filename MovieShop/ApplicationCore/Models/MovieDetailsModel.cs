@@ -9,6 +9,7 @@ public class MovieDetailsModel
         Genres = new List<GenreModel>();
         Trailers = new List<TrailerModel>();
         Casts = new List<CastModel>();
+        Reviews = new List<ReviewModel>();
     }
     
     public int Id { get; set; }
@@ -35,4 +36,6 @@ public class MovieDetailsModel
     public List<TrailerModel> Trailers { get; set; }
 
     public List<CastModel> Casts { get; set; }
+    
+    public List<ReviewModel> Reviews { get; set; }
 }

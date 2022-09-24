@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "bbX51dimyfUTli9JnyEMfmkuhT0JxcZY6n1ByhjX2Qw=",
+  "Hash": "d01dAUJRkoilsdlJEZXRPwIXVxDhDiE+jXxvsnu2ix4=",
   "Source": "MovieShopMVC",
   "BasePath": "_content/MovieShopMVC",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/obj/Debug/net6.0/scopedcss/projectbundle/MovieShopMVC.bundle.scp.css"
+    },
+    {
+      "Identity": "/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/wwwroot/.DS_Store",
+      "SourceId": "MovieShopMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/wwwroot/",
+      "BasePath": "_content/MovieShopMVC",
+      "RelativePath": ".DS_Store",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/.DS_Store"
     },
     {
       "Identity": "/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/wwwroot/css/site.css",

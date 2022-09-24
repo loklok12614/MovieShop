@@ -25,7 +25,7 @@ public class CastService : ICastService
             TmdbUrl = castDetails.TmdbUrl,
         };
 
-        foreach (var movie in castDetails.MoviesOfCast)
+        foreach (var movie in castDetails.MoviesOfCast.OrderByDescending(m=> m.Movie.ReleaseDate))
         {
             castDetailsModel.Movies.Add( new CastMovieModel
                 {
