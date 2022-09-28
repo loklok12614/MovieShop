@@ -18,7 +18,7 @@ public class MovieService : IMovieService
 
     public async Task<PagedResultSet<MovieCardModel>> GetAllMovies(int pageSize = 30, int page = 1)
     {
-        var movies = await _movieRepository.GetAllMovies(pageSize, page);
+        var movies = await _movieRepository.GetAllMoviesDapper(pageSize, page);
 
         var movieCards = new List<MovieCardModel>();
         movieCards.AddRange(movies.Data.Select(m => new MovieCardModel

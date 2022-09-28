@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "ijezT1x+MJ3+opiYGh8YUudB3vhJ/kopfaqn3ZgJ/KOBfSCOwJpxGmINbOMuCZaQZrANMhjjQ1v/8tEpd+5Zbg==",
+  "dgSpecHash": "9BlcJl7/adWsieWDrCiDqb9qPd/pSQVmcaETAPC39gcNZ42VT2UwlqbtA+OFNPp0J/l1H/iBYM3KpmxdnCqIIw==",
   "success": true,
   "projectFilePath": "/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/MovieShopMVC/MovieShopMVC.csproj",
   "expectedPackageFiles": [
     "/Users/ching-lokleung/.nuget/packages/azure.core/1.20.0/azure.core.1.20.0.nupkg.sha512",
     "/Users/ching-lokleung/.nuget/packages/azure.identity/1.5.0/azure.identity.1.5.0.nupkg.sha512",
+    "/Users/ching-lokleung/.nuget/packages/dapper/2.0.123/dapper.2.0.123.nupkg.sha512",
     "/Users/ching-lokleung/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/ching-lokleung/.nuget/packages/messagepack/2.1.152/messagepack.2.1.152.nupkg.sha512",
     "/Users/ching-lokleung/.nuget/packages/messagepack.annotations/2.1.152/messagepack.annotations.2.1.152.nupkg.sha512",

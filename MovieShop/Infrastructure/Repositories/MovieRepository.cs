@@ -1,19 +1,25 @@
+using System.Data;
 using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Entities;
 using ApplicationCore.Models;
+using Dapper;
 using Infrastructure.Data;
-
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Repositories;
 
 public class MovieRepository : IMovieRepository
 {
     private readonly MovieShopDbContext _movieShopDbContext;
+    private readonly IDbConnection connection;
 
-    public MovieRepository(MovieShopDbContext movieShopDbContext)
+    public MovieRepository(MovieShopDbContext movieShopDbContext, IConfiguration configuration)
     {
         _movieShopDbContext = movieShopDbContext;
+        connection = new SqlConnection(configuration.GetConnectionString("MovieShopDbConnection"));
     }
 
     public async Task<Movie> GetById(int id)
@@ -47,6 +53,29 @@ public class MovieRepository : IMovieRepository
             .Take(pageSize)
             .ToListAsync();
 
+        var pagedMovies = new PagedResultSet<Movie>(movies, page, pageSize, totalMoviesCount);
+        return pagedMovies;
+    }
+
+    public async Task<PagedResultSet<Movie>> GetAllMoviesDapper(int pageSize = 30, int page = 1)
+    {
+        var totalMoviesCount = await connection.ExecuteScalarAsync<int>("SELECT COUNT(Id) FROM Movies");
+        if (totalMoviesCount == 0)
+        {
+            throw new Exception("No Movie Found For This Genre");
+        }
+
+        var query = "SELECT Id, PosterUrl, Title " +
+                    "FROM Movies " +
+                    "ORDER BY Revenue DESC " +
+                    "OFFSET @Offset ROWS " +
+                    "FETCH NEXT @Fetch ROWS ONLY";
+            
+        var parameters = new DynamicParameters();
+        parameters.Add("@Offset", (page - 1) * pageSize);
+        parameters.Add("@Fetch", pageSize);
+            
+        var movies = await connection.QueryAsync<Movie>(query, parameters);
         var pagedMovies = new PagedResultSet<Movie>(movies, page, pageSize, totalMoviesCount);
         return pagedMovies;
     }

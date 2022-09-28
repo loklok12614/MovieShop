@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "58zNwmNFNmMTs/Xl/rnYKXU901m3RYlmkT7QbDkwyGzAISYJYsjlKmj2j1xFJ98wGRjbxdkzFIHbJyHJCG03ZQ==",
+  "dgSpecHash": "2MzXAHPG1eXghLgZ90HK7sj558vPgbT7Tsij/8s7Z/QkBgr6NL4Ip/ChQ1hp5IjOefCljqQYleplOhu0sjbI3Q==",
   "success": true,
   "projectFilePath": "/Users/ching-lokleung/Antra-FullStack/MovieShop/MovieShop/Infrastructure/Infrastructure.csproj",
   "expectedPackageFiles": [
     "/Users/ching-lokleung/.nuget/packages/azure.core/1.20.0/azure.core.1.20.0.nupkg.sha512",
     "/Users/ching-lokleung/.nuget/packages/azure.identity/1.5.0/azure.identity.1.5.0.nupkg.sha512",
+    "/Users/ching-lokleung/.nuget/packages/dapper/2.0.123/dapper.2.0.123.nupkg.sha512",
     "/Users/ching-lokleung/.nuget/packages/microsoft.aspnetcore.cryptography.internal/6.0.8/microsoft.aspnetcore.cryptography.internal.6.0.8.nupkg.sha512",
     "/Users/ching-lokleung/.nuget/packages/microsoft.aspnetcore.cryptography.keyderivation/6.0.8/microsoft.aspnetcore.cryptography.keyderivation.6.0.8.nupkg.sha512",
     "/Users/ching-lokleung/.nuget/packages/microsoft.bcl.asyncinterfaces/1.0.0/microsoft.bcl.asyncinterfaces.1.0.0.nupkg.sha512",
